@@ -1,26 +1,15 @@
 <?php
-
+session_start();
 // The code for this page was taken from this tutorial:
 // https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
 
 // Include config file
-require_once 'config_dev.php'; // CHANGE THIS for production!
+require_once 'config.php'; // CHANGE THIS for production!
 
 // Define variables and initialize with empty values
 $username = $password = "";
 $username_err = $password_err = "";
 
-//if($result = mysqli_query($conn, $sql)) {
-
-//$sql = "SHOW TABLES";
-$sql = "SELECT * FROM user";
-
-if($stmt = mysqli_prepare($conn, $sql)) {
-//if($result = mysqli_query($conn, $sql)) {
-    echo 'success!';
-} else {
-    echo 'failure';
-}
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -45,48 +34,30 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
-        echo "  validating.. ";
-        $sql = "SELECT user_name, password FROM user WHERE username = ?";
-///
-        if ($result = mysqli_query($conn, $sql)) {
-            echo "success ..";
-            /* fetch associative array */
-            while ($row = mysqli_fetch_assoc($result)) {
-                printf("%s (%s)\n", $row["user_name"], $row["password"]);
-            }
-        } else {
-            echo "didn't work";
-        }
-///
-        if($stmt = mysqli_prepare($link, $sql)){
+        $sql = "SELECT * FROM user WHERE user_name = ?";
+
+        if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_username);
-
-            // Set parameters
-            $param_username = $username;
-
+            mysqli_stmt_bind_param($stmt, "s", $param_id);
+            $param_id = $username;
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Store result
-                mysqli_stmt_store_result($stmt);
+                //mysqli_stmt_store_result($stmt);
+                $result = mysqli_stmt_get_result($stmt);
 
                 // Check if username exists, if yes then verify password
-                if(mysqli_stmt_num_rows($stmt) == 1){
-                    // Bind result variables
-
-                    mysqli_stmt_bind_result($stmt, $username, $hashed_password);
-                    if(mysqli_stmt_fetch($stmt)){
-                        if(password_verify($password, $hashed_password)){
-                            /* Password is correct, so start a new session and
-                            save the username to the session */
-                            session_start();
-                            $_SESSION['username'] = $username;
-                            header("location: welcome.php");
-                        } else{
-                            // Display an error message if password is not valid
-                            $password_err = 'The password you entered was not valid.';
-                        }
+                if(mysqli_num_rows($result) == 1){
+                    $first_row =  mysqli_fetch_assoc($result);
+                    $fetched_password = $first_row['password'];
+                    if($password == $fetched_password) {
+                        $_SESSION['username'] = $username;
+                        header("location: welcome.php");
+                    } else{
+                        // Display an error message if password is not valid
+                        $password_err = 'The password you entered was not valid.';
                     }
+
                 } else{
                     // Display an error message if username doesn't exist
                     $username_err = 'No account found with that username.';
@@ -94,8 +65,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
-        } else {
-            echo "failure part 3";
         }
 
         // Close statement

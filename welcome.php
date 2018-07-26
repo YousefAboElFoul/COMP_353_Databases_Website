@@ -2,19 +2,11 @@
 // Initialize the session
 session_start();
 
- // If session variable is not set it will redirect to login page
-//if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
-//    header("location: login.php");
-//    exit;
-//}
-
-if(!isset($_SESSION['username'])) {
-    echo "not isset";
+// If session variable is not set it will redirect to login page
+if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
+    header("location: login.php");
+    exit;
 }
-if(empty($_SESSION['username'])) {
-    echo "empty";
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +21,7 @@ if(empty($_SESSION['username'])) {
 </head>
 <body>
 <div class="page-header">
-    <h1>Hi,  Welcome to our site.</h1>
+    <h1>Hi, <b><?php echo htmlspecialchars($_SESSION['username']); ?></b>. Welcome to our site.</h1>
 </div>
 <p><a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a></p>
 </body>
