@@ -4,7 +4,7 @@ session_start();
 // https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
 
 // Include config file
-require_once 'config.php'; // CHANGE THIS for production!
+require_once '../config.php'; // CHANGE THIS for production!
 
 // Define variables and initialize with empty values
 $username = $password = "";
