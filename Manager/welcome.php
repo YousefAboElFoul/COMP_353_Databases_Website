@@ -36,7 +36,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                 // Include config file
                 require_once '../config.php';
                 // Attempt select query execution
-                $sql = "SELECT * FROM company_worker";
+                $sql = "SELECT * FROM company_worker ";
                 if($result = mysqli_query($conn, $sql)){
                     if(mysqli_num_rows($result) > 0){
                         echo "<table class='table table-bordered table-striped'>";
@@ -91,6 +91,6 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
     </div>
 </div>
 
-<p><a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a></p>
+<p><a href=<?php echo $base_url . "Manager/logout.php" ?> class="btn btn-danger">Sign Out of Your Account</a></p>
 </body>
 </html>
