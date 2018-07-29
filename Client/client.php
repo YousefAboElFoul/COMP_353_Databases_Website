@@ -1,13 +1,23 @@
 <?php
 // Initialize the session
 session_start();
-// If session variable is not set it will redirect to login page
-if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
-    header("location: login.php");
-    exit;
+//// If session variable is not set it will redirect to login page
+//if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
+   // header("location: login.php");
+   // exit;//
+
+?>
+
+<?php
+$satifaction_input='';
+if(isset($_POST[submitBtn]))
+{	$name=$_POST['satifaction'];
+echo'thank you for your feedback';
 }
 ?>
+
 <!DOCTYPE html>
+
 <html>
 <head>
 <title>
@@ -17,15 +27,15 @@ Client Page
 <body>
 <form acton="client.php" method="post">
 <input type="number" name="satifaction" placeholder="Please enter your satifaction number(1-10)">
+<input type="submit" name="submitBtn" placeholder="Submit">
 
 </form>
 
 <?php
 //have to validate whether client has contracts or not
-$Contract_validate = "SELECT * FROM Contract, Client WHERE Contract.id=Client.id";
-if(!$Contract_validate)
-{
-	echo"You don't have any active contracts";
+$sql = "SELECT id FROM Contract , Client WHERE Contract.id=Client.id";
+if(!$sql){
+	echo "You dont have any active contracts";
 	header("location:welcome.php");
 }
 
