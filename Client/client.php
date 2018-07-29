@@ -10,8 +10,8 @@ session_start();
 
 <?php
 $satifaction_input='';
-if(isset($_POST[submitBtn]))
-{	$name=$_POST['satifaction'];
+if(isset($_POST['submitBtn']))
+{	$name=$_POST['satisfaction_in'];
 echo'thank you for your feedback';
 }
 ?>
@@ -26,7 +26,7 @@ Client Page
 </head>
 <body>
 <form acton="client.php" method="post">
-<input type="number" name="satifaction" placeholder="Please enter your satifaction number(1-10)">
+<input type="number" name="satisfaction_in" placeholder="Please enter your satifaction number(1-10)">
 <input type="submit" name="submitBtn" placeholder="Submit">
 
 </form>
@@ -39,7 +39,7 @@ if(!$sql){
 	header("location:welcome.php");
 }
 
- 
+ $data_in="INSERT INTO Client (satifaction) VALUES(satisfaction_in)";
 
  
 echo "client will be able to see all active/expired contracts";
