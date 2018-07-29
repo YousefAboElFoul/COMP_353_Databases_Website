@@ -15,6 +15,10 @@ Client Page
 </title>
 </head>
 <body>
+<form acton="client.php" method="post">
+<input type="number" name="satifaction" placeholder="Please enter your satifaction number(1-10)">
+
+</form>
 
 <?php
 //have to validate whether client has contracts or not
