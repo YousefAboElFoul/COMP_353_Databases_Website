@@ -29,8 +29,8 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
         <div class="row">
             <div class="col-md-12">
                 <div class="page-header clearfix">
-                    <h2 class="pull-left">Your Contracts</h2>
-
+                    <h2 class="pull-left">Company Worker Details</h2>
+                    <a href="create.php" class="btn btn-success pull-right">Add New Employee</a>
                 </div>
                 <?php
 
@@ -55,24 +55,22 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                 }
 
                 // Attempt select query execution
-                $sql = "SELECT * FROM contract WHERE manager_id = ?";
+                $sql = "SELECT * FROM company_worker WHERE manager_id = ?";
                 if($stmt = mysqli_prepare($conn, $sql)) {
                     mysqli_stmt_bind_param($stmt, "s", $param1);
                     $param1 = $manager_id;
                     if(mysqli_stmt_execute($stmt)) {
                         $result = mysqli_stmt_get_result($stmt);
                         if(mysqli_num_rows($result) > 0){
-
-                            // THIS TABLE IS MISSING VALUES
                             echo "<table class='table table-bordered table-striped'>";
                             echo "<thead>";
                             echo "<tr>";
-                            echo "<th>Contract Id</th>";
-                            echo "<th>Responsible ID</th>";
-                            echo "<th>ACV</th>";
-                            echo "<th>Initial Amount</th>";
+                            echo "<th>#</th>";
+                            echo "<th>Name</th>";
+                            echo "<th>Username</th>";
+                            echo "<th>Password</th>";
                             echo "<th>Contract Type</th>";
-                            echo "<th>Manager ID</th>";
+                            echo "<th>Action</th>";
                             echo "</tr>";
                             echo "</thead>";
                             echo "<tbody>";
@@ -85,14 +83,15 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                                     $contract_type = $contract_type_rows['name'];
                                 }
                                 echo "<tr>";
-                                echo "<td>" . $row['company_id'] . "</td>";
-                                echo "<td>" . $row['responsible_id'] . "</td>";
-                                echo "<td>" . $row['acv'] . "</td>";
-                                echo "<td>" . $row['initial_amount'] . "</td>";
-
-                                echo "<td>". $row['contract_type'] . "</td>";
+                                echo "<td>" . $row['id'] . "</td>";
+                                echo "<td>" . $row['name'] . "</td>";
+                                echo "<td>" . $row['user_name'] . "</td>";
+                                echo "<td>" . $row['password'] . "</td>";
+                                echo "<td>". $contract_type . "</td>";
                                 echo "<td>";
+                                echo "<a href='read.php?id=". $row['id'] ."' title='View Record' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
                                 echo "<a href='update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
+                                echo "<a href='delete.php?id=". $row['id'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
                                 echo "</td>";
                                 echo "</tr>";
                             }
