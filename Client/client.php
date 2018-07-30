@@ -25,7 +25,7 @@ Client Page
 </title>
 </head>
 <body>
-<form acton="client.php" method="post">
+<form action="client.php" method="post">
 <input type="number" name="satisfaction_in" placeholder="Please enter your satifaction number(1-10)">
 <input type="submit" name="submitBtn" placeholder="Submit">
 
@@ -39,7 +39,9 @@ if(!$sql){
 	header("location:welcome.php");
 }
 
- $data_in="INSERT INTO Client (satifaction) VALUES(satisfaction_in)";
+ $data_in="INSERT INTO Client (name,phone_number, email, city,
+ province,postal_code,satifaction) VALUES("Yousef",514770,"gmail",
+ "Montreal","QC",'HR',satisfaction_in)";
 
  
 echo "client will be able to see all active/expired contracts";
