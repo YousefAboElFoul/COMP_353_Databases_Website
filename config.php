@@ -31,4 +31,7 @@ if($environment == DEV) {
     // production setup goes here, so can run on school servers
 }
 
+
+// Below is for manager only. If not working on manager you can ignore this
+$hours_worked = [5, 10, 15, 20, 25, 30, 35, 40];
 ?>
