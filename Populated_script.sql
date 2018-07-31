@@ -94,6 +94,7 @@ CREATE TABLE IF NOT EXISTS Responsible (
     FOREIGN KEY (client_id) REFERENCES Client(id)
 ) ENGINE=INNODB;
 INSERT INTO Responsible(first_name,last_name,middle_initial,client_id)Values('Ayman','Abo El Foul','S',1);
+INSERT INTO Responsible(first_name,last_name,middle_initial,client_id)Values('Loban','Fear','S',2);
      
 	 
 DROP TABLE IF EXISTS Employee;
@@ -183,8 +184,8 @@ CREATE TABLE IF NOT EXISTS Contract (
 
 
 
-DROP TABLE IF EXISTS ContractEmployee;
-CREATE TABLE IF NOT EXISTS ContractEmployee(
+DROP TABLE IF EXISTS Contract_Employee;
+CREATE TABLE IF NOT EXISTS Contract_Employee(
   contract_id INT UNSIGNED,
   employee_id INT UNSIGNED,
   PRIMARY KEY(contract_id,employee_id),
@@ -192,8 +193,8 @@ CREATE TABLE IF NOT EXISTS ContractEmployee(
   FOREIGN KEY(employee_id) REFERENCES Employee(id)
 )ENGINE=INNODB;
 
-DROP TABLE IF EXISTS ContractManager;
-CREATE TABLE IF NOT EXISTS ContractManager(
+DROP TABLE IF EXISTS Contract_Manager;
+CREATE TABLE IF NOT EXISTS Contract_Manager(
   contract_id INT UNSIGNED,
   manager_id INT UNSIGNED,
   PRIMARY KEY(contract_id,manager_id),
@@ -202,14 +203,14 @@ CREATE TABLE IF NOT EXISTS ContractManager(
 )ENGINE=INNODB;
 
 
-INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type, client_satisfaction)
-  VALUES(1, 1, 90000, 20000, 1, 1, 5);
-  INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type, client_satisfaction)
-  VALUES(1, 1, 90000, 20000, 1, 1, 5);
+INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type)
+  VALUES(1, 1, 90000, 20000, 1, 1);
+  INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type)
+  VALUES(2, 2, 100000, 20000, 1, 1);
 
 # contract type is 1 for this 1st contract therefore we need an employee whos preferred
 # contract type is 1 therefor Max Patches the third employee created --> employee_id = 3
-INSERT INTO ContractEmployee(contract_id, employee_id) VALUES(1, 3);
-INSERT INTO ContractManager(contract_id, manager_id) VALUES(1, 1);
+INSERT INTO Contract_Employee(contract_id, employee_id) VALUES(1, 3);
+INSERT INTO Contract_Manager(contract_id, manager_id) VALUES(1, 1);
 
 
