@@ -97,7 +97,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <body>
 <div class="wrapper">
-    <h2>Manager Login</h2>
+    <h2>Admin Login</h2>
     <p>Please fill in your credentials to login.</p>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">

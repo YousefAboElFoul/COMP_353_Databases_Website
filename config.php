@@ -10,6 +10,7 @@ const HannaDEV = "hannaDev";
 const PROD = "prod";  // production
 
 
+$environment = DEV; // choose your dev here
 /* Database credentials. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
 
@@ -29,11 +30,8 @@ if($environment == RyanDEV) {
     } {
         //echo "connected to db\n";  // TESTING
     }
-} else {
-    // production setup goes here, so can run on school servers
 }
-
-if($environment == YazanDEV) {
+else if($environment == YazanDEV) {
     define('DB_SERVER', 'localhost');
     define('DB_USERNAME', 'root');
     define('DB_PASSWORD', '');
@@ -49,11 +47,7 @@ if($environment == YazanDEV) {
     } {
         //echo "connected to db\n";  // TESTING
     }
-} else {
-    // production setup goes here, so can run on school servers
-}
-
-if($environment == YousefDEV) {
+else if($environment == YousefDEV) {
     define('DB_SERVER', 'localhost');
     define('DB_USERNAME', 'root');
     define('DB_PASSWORD', '');
@@ -69,11 +63,8 @@ if($environment == YousefDEV) {
     } {
         //echo "connected to db\n";  // TESTING
     }
-} else {
-    // production setup goes here, so can run on school servers
-}
-
-if($environment == HannaDEV) {
+}	
+else if($environment == HannaDEV) {
     define('DB_SERVER', 'localhost');
     define('DB_USERNAME', 'root');
     define('DB_PASSWORD', '');
