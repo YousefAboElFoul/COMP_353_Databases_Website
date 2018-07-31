@@ -1,6 +1,6 @@
 <?php
 
-//const DEV = "dev";  // development
+const DEV = "dev";  // development
 
 const RyanDEV = "ryanDev";
 const YazanDEV = "yazanDev";
@@ -10,7 +10,7 @@ const HannaDEV = "hannaDev";
 const PROD = "prod";  // production
 
 
-$environment = RyanDEV; // choose your dev here
+$environment = DEV; // choose your dev here
 /* Database credentials. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
 
@@ -27,7 +27,9 @@ if($environment == RyanDEV) {
 // Check connection
     if($conn === false) {
         die("ERROR: Could not connect. " . mysqli_connect_error());
-    } {
+    }
+	else
+	{
         //echo "connected to db\n";  // TESTING
     }
 }
@@ -42,9 +44,9 @@ else if($environment == YazanDEV) {
 
     $base_url = "/project/COMP_353_Databases_Website/";
 // Check connection
-    if ($conn === false) {
+    if($conn === false) {
         die("ERROR: Could not connect. " . mysqli_connect_error());
-    } else {
+    }else {
         //echo "connected to db\n";  // TESTING
     }
 }
@@ -61,7 +63,8 @@ else if($environment == YousefDEV) {
 // Check connection
     if($conn === false) {
         die("ERROR: Could not connect. " . mysqli_connect_error());
-    } else {
+    }
+	else {
         //echo "connected to db\n";  // TESTING
     }
 }	
@@ -78,14 +81,13 @@ else if($environment == HannaDEV) {
 // Check connection
     if($conn === false) {
         die("ERROR: Could not connect. " . mysqli_connect_error());
-    } else {
+    }
+	else
+	{
         //echo "connected to db\n";  // TESTING
     }
 } else {
     // production setup goes here, so can run on school servers
 }
 
-
-// Below is for manager only. If not working on manager you can ignore this
-$hours_worked = [5, 10, 15, 20, 25, 30, 35, 40];
 ?>
