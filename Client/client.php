@@ -1,4 +1,5 @@
 <?php
+
 // Initialize the session
 require_once 'config.php';
 session_start();
@@ -41,7 +42,7 @@ if(!$sql){
 }
 
  $data_in="INSERT INTO Client (name,phone_number, email, city,
- province,postal_code,satifaction) VALUES("Yousef",514770,"gmail",
+ province,postal_code,satifaction) VALUES(""Yousef,"514770,"gmail",
  "Montreal","QC",'HR',satisfaction_in)";
 
  
