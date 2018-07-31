@@ -92,6 +92,7 @@ CREATE TABLE IF NOT EXISTS Responsible (
     INDEX(client_id),
     FOREIGN KEY (client_id) REFERENCES Client(id)
 ) ENGINE=INNODB;
+INSERT INTO Responsible(first_name,last_name,middle_initial,client_id)Values('Ayman','Abo El Foul','S',1);
      
 	 
 DROP TABLE IF EXISTS Employee;
@@ -176,6 +177,14 @@ CREATE TABLE IF NOT EXISTS Contract (
     FOREIGN KEY(contract_type) REFERENCES Contract_type(id),
     FOREIGN KEY(responsible_id) REFERENCES Responsible(id)
 ) ENGINE=INNODB;
+INSERT INTO Contract(client_id ,
+    responsible_id ,
+    acv ,
+    initial_amount , 
+    start_date ,
+    service_type ,
+    contract_type ,
+	client_satisfaction)VALUES()
 
 DROP TABLE IF EXISTS WorksOn;
 CREATE TABLE IF NOT EXISTS WorksOn(
