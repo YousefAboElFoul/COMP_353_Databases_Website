@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS Contract (
     start_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     service_type INT UNSIGNED,
     contract_type INT UNSIGNED,
-	client_satisfaction INT,
+	client_satisfaction INT DEFAULT NULL,
 	CONSTRAINT satisfaction_chk CHECK (client_satisfaction BETWEEN 1 AND 10),
     PRIMARY KEY(id),
     INDEX(client_id),
@@ -180,17 +180,8 @@ CREATE TABLE IF NOT EXISTS Contract (
     FOREIGN KEY(contract_type) REFERENCES Contract_type(id),
     FOREIGN KEY(responsible_id) REFERENCES Responsible(id)
 ) ENGINE=INNODB;
-INSERT INTO Contract(client_id ,
-    responsible_id ,
-    acv ,
-    initial_amount , 
-    start_date ,
-    service_type ,
-    contract_type ,
-	client_satisfaction)VALUES()
 
-INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type, client_satisfaction)
-  VALUES(1, 1, 90000, 20000, 1, 1, 5);
+
 
 DROP TABLE IF EXISTS ContractEmployee;
 CREATE TABLE IF NOT EXISTS ContractEmployee(
@@ -212,6 +203,8 @@ CREATE TABLE IF NOT EXISTS ContractManager(
 
 
 INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type, client_satisfaction)
+  VALUES(1, 1, 90000, 20000, 1, 1, 5);
+  INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type, client_satisfaction)
   VALUES(1, 1, 90000, 20000, 1, 1, 5);
 
 # contract type is 1 for this 1st contract therefore we need an employee whos preferred
