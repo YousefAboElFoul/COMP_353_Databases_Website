@@ -2,10 +2,10 @@ USE rcc353_1;
 SET FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE IF EXISTS AccountType;
-CREATE TABLE IF NOT EXISTS AccountType(
-id INT(6) UNSIGNED AUTO_INCREMENT, 
-type VARCHAR(20),
-PRIMARY KEY(id)
+  CREATE TABLE IF NOT EXISTS AccountType(
+  id INT(6) UNSIGNED AUTO_INCREMENT,
+  type VARCHAR(20),
+  PRIMARY KEY(id)
 )ENGINE= INNODB;
 INSERT INTO AccountType(type) VALUES('ADMIN');
 INSERT INTO AccountType(type) VALUES('SalesAssociate');
@@ -16,13 +16,14 @@ INSERT INTO AccountType(type) VALUES('Client');
 
 DROP TABLE IF EXISTS Account;
 CREATE TABLE IF NOT EXISTS Account(
-id INT(6) UNSIGNED AUTO_INCREMENT,
-username VARCHAR(20),
-password CHAR(8),
-account_type INT UNSIGNED,
-PRIMARY KEY (id),
-FOREIGN KEY (account_type) REFERENCES AccountType(id)
+  id INT(6) UNSIGNED AUTO_INCREMENT,
+  username VARCHAR(20),
+  password CHAR(8),
+  account_type INT UNSIGNED,
+  PRIMARY KEY (id),
+  FOREIGN KEY (account_type) REFERENCES AccountType(id)
 )ENGINE=INNODB;
+
 INSERT INTO Account(username,password,account_type) VALUES('MOMO','123456',5);
 INSERT INTO Account(username,password,account_type) VALUES('Ryan','4588AA',5);
 INSERT INTO Account(username,password,account_type) VALUES('Yosuef','BB123',5);
@@ -32,7 +33,7 @@ INSERT INTO Account(username,password,account_type) VALUES('WHYYoulikedat','4545
 INSERT INTO Account(username,password,account_type)VALUES('PRINCE EL LYAL','BB123',4);
 INSERT INTO Account(username,password,account_type)VALUES('ESHQ HERE','notbada',3);
 INSERT INTO Account(username,password,account_type)VALUES('THOMAS ANDRESON','passisme',3);
-INSERT INTO Account(username,password,account_type) VALUES('DEVIANT CONOOR','BB123',1);
+INSERT INTO Account(username,password,account_type) VALUES('DEVIANT_CONOOR','BB123',1);
 INSERT INTO Account(username,password,account_type) VALUES('BRADLEY MARTYN','ZOOGYM',2);
 INSERT INTO Account(username,password,account_type) VALUES('NICK Power','Strength',2);
 
@@ -132,11 +133,11 @@ VALUES("SPIDER GUY",9);
 
 DROP TABLE IF EXISTS SalesAssociate;
 CREATE TABLE IF NOT EXISTS SalesAssociate(
- id INT UNSIGNED AUTO_INCREMENT, 
- name VARCHAR(30) NOT NULL,
- user_id INT UNSIGNED,
- PRIMARY KEY(id),
- FOREIGN KEY (user_id) REFERENCES Account(id) 
+   id INT UNSIGNED AUTO_INCREMENT,
+   name VARCHAR(30) NOT NULL,
+   user_id INT UNSIGNED,
+   PRIMARY KEY(id),
+   FOREIGN KEY (user_id) REFERENCES Account(id)
 )ENGINE=INNODB;
 INSERT INTO SalesAssociate(name,user_id) 
 VALUES("Nicholas Gattuson",11);
@@ -145,14 +146,15 @@ VALUES("Khaled Jababo",12);
 
 DROP TABLE IF EXISTS Admin;	
 CREATE TABLE IF NOT EXISTS Admin(
- id INT UNSIGNED AUTO_INCREMENT, 
- name VARCHAR(30) NOT NULL,
- user_id INT UNSIGNED,
- PRIMARY KEY(id),
- FOREIGN KEY (user_id) REFERENCES Account(id)
+   id INT UNSIGNED AUTO_INCREMENT,
+   name VARCHAR(30) NOT NULL,
+   user_id INT UNSIGNED,
+   PRIMARY KEY(id),
+   FOREIGN KEY (user_id) REFERENCES Account(id)
 ) ENGINE=INNODB;
-INSERT INTO ADMIN(name,user_id) 
-VALUES("BOSS HAMILITON",10);
+
+INSERT INTO Admin(name, user_id) VALUES("DEVIANT CONOOR", 10);
+##--VALUES("BOSS HAMILITON",10);
 
 
 
@@ -166,13 +168,14 @@ CREATE TABLE IF NOT EXISTS Contract (
     start_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     service_type INT UNSIGNED,
     contract_type INT UNSIGNED,
-    manager_id INT UNSIGNED,
 	client_satisfaction INT,
 	CONSTRAINT satisfaction_chk CHECK (client_satisfaction BETWEEN 1 AND 10),
     PRIMARY KEY(id),
+    INDEX(client_id),
     INDEX(contract_type),
     INDEX(service_type),
     INDEX(responsible_id),
+    FOREIGN KEY(client_id) REFERENCES Client(id),
     FOREIGN KEY(service_type) REFERENCES Service_type(id),
     FOREIGN KEY(contract_type) REFERENCES Contract_type(id),
     FOREIGN KEY(responsible_id) REFERENCES Responsible(id)
@@ -186,16 +189,34 @@ INSERT INTO Contract(client_id ,
     contract_type ,
 	client_satisfaction)VALUES()
 
-DROP TABLE IF EXISTS WorksOn;
-CREATE TABLE IF NOT EXISTS WorksOn(
-contract_id INT UNSIGNED,
-employee_id INT UNSIGNED,
-manager_id INT UNSIGNED,
-PRIMARY KEY(contract_id,employee_id),
-FOREIGN KEY(contract_id) REFERENCES Contract(id),
-FOREIGN KEY(employee_id) REFERENCES Employee(id),
-FOREIGN KEY(manager_id) REFERENCES Manager(id)
+INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type, client_satisfaction)
+  VALUES(1, 1, 90000, 20000, 1, 1, 5);
+
+DROP TABLE IF EXISTS ContractEmployee;
+CREATE TABLE IF NOT EXISTS ContractEmployee(
+  contract_id INT UNSIGNED,
+  employee_id INT UNSIGNED,
+  PRIMARY KEY(contract_id,employee_id),
+  FOREIGN KEY(contract_id) REFERENCES Contract(id),
+  FOREIGN KEY(employee_id) REFERENCES Employee(id)
 )ENGINE=INNODB;
 
+DROP TABLE IF EXISTS ContractManager;
+CREATE TABLE IF NOT EXISTS ContractManager(
+  contract_id INT UNSIGNED,
+  manager_id INT UNSIGNED,
+  PRIMARY KEY(contract_id,manager_id),
+  FOREIGN KEY(contract_id) REFERENCES Contract(id),
+  FOREIGN KEY(manager_id) REFERENCES Manager(id)
+)ENGINE=INNODB;
+
+
+INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type, client_satisfaction)
+  VALUES(1, 1, 90000, 20000, 1, 1, 5);
+
+# contract type is 1 for this 1st contract therefore we need an employee whos preferred
+# contract type is 1 therefor Max Patches the third employee created --> employee_id = 3
+INSERT INTO ContractEmployee(contract_id, employee_id) VALUES(1, 3);
+INSERT INTO ContractManager(contract_id, manager_id) VALUES(1, 1);
 
 

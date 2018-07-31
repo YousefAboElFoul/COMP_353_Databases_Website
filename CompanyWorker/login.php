@@ -34,12 +34,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT * FROM company_worker WHERE user_name = ?";
+        $sql = "SELECT * FROM Account INNER JOIN Employee ON user_id = Account.id
+                WHERE account_type=? AND Account.username =?";
 
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_id);
-            $param_id = $username;
+            mysqli_stmt_bind_param($stmt, "is", $param1, $param2);
+            $param1 = 4; // for Employee
+            $param2 = $username;
+            //$param3 = $password;
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Store result

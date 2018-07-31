@@ -9,7 +9,7 @@ require_once "../config.php";
 if(isset($_GET["emp_id"]) && !empty($_GET["emp_id"])) {
 // Get hidden input value
     $employee_id = $_GET["emp_id"];
-    echo "Id is: " . $employee_id;
+    echo "Employee Id is: " . $employee_id;
 } else {
     echo "Can't get contract_id";
 }
@@ -18,7 +18,7 @@ if(isset($_GET["emp_id"]) && !empty($_GET["emp_id"])) {
 if(isset($_GET["contract_id"]) && !empty($_GET["contract_id"])) {
 // Get hidden input value
     $contract_id = $_GET["contract_id"];
-    echo "Id is: " . $contract_id;
+    echo "Contract Id is: " . $contract_id;
 } else {
     echo "Can't get contract_id";
 }
@@ -40,11 +40,14 @@ if($stmt = mysqli_prepare($conn, $sql)) {
     }
 }
 
-$sql = "INSERT INTO contract_worker(company_worker_id, contract_id) VALUES (?, ?)";
+$sql = "INSERT INTO contract_worker(company_worker_id, contract_id, hours_worked) VALUES (?, ?, ?)";
 if($stmt = mysqli_prepare($conn, $sql) ) {
-    mysqli_stmt_bind_param($stmt, "ii", $param1, $param2);
+    mysqli_stmt_bind_param($stmt, "iii", $param1, $param2, $param3);
     $param1 = $employee_id;
     $param2 = $contract_id;
+    $pos = array_rand($hours_worked);
+    $param3 = 30 + $hours_worked[$pos];
+    echo "param3: ". $param3;
 
     if (mysqli_stmt_execute($stmt)) {
         // Redirect to welcome page

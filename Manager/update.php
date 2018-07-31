@@ -112,10 +112,12 @@ if(!isset($_GET["id"]) ) {
     echo "<tr>";
     echo "<th>Employee Id</th>";
     echo "<th>Name</th>";
+    echo "<th>Hours Worked</th>";
+    echo "<th></th>";
     echo "</thead>";
     echo "<tbody>";
 //////////////////////////////////////////////////////////
-    $sql = "SELECT company_worker.id, company_worker.name FROM contract_worker INNER JOIN 
+    $sql = "SELECT company_worker.id, company_worker.name, contract_worker.hours_worked FROM contract_worker INNER JOIN 
             company_worker ON 
             contract_worker.company_worker_id = company_worker.id WHERE
             contract_worker.contract_id = ?";
@@ -130,6 +132,11 @@ if(!isset($_GET["id"]) ) {
                     echo "<tr>";
                     echo "<td>" . $row['id'] . "</td>";
                     echo "<td>" . $row['name'] . "</td>";
+                    echo "<td>" . $row['hours_worked'] . "</td>";
+                    echo "<td>";
+                    echo  "<p><a href=" . $base_url . "Manager/remove_employee.php?emp_id=". $row['id'].
+                        "&contract_id=". $contract_id . " class='btn btn-danger'>Remove</a></p>";
+                    echo "</td>";
                     echo "</tr>";
                 }
 
