@@ -42,8 +42,8 @@
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li><a href=<?php echo $base_url . "CompanyWorker/SetContractCategory/premium.php" ?> >Premium</a></li>
-            <li><a href=<?php echo $base_url . "CompanyWorker/SetContractCategory/gold.php" ?> >Gold</a></li>
             <li><a href=<?php echo $base_url . "CompanyWorker/SetContractCategory/diamond.php" ?> >Diamond</a></li>
+            <li><a href=<?php echo $base_url . "CompanyWorker/SetContractCategory/gold.php" ?> >Gold</a></li>
             <li><a href=<?php echo $base_url . "CompanyWorker/SetContractCategory/silver.php" ?> >Silver</a></li>
         </ul>
     </div>

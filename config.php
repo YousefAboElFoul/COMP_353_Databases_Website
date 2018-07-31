@@ -10,7 +10,7 @@ const HannaDEV = "hannaDev";
 const PROD = "prod";  // production
 
 
-$environment = DEV; // choose your dev here
+$environment = RyanDEV; // choose your dev here
 /* Database credentials. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
 
@@ -18,7 +18,7 @@ if($environment == RyanDEV) {
     define('DB_SERVER', 'localhost');
     define('DB_USERNAME', 'root');
     define('DB_PASSWORD', 'mysql');
-    define('DB_NAME', 'prod_db');
+    define('DB_NAME', 'rcc353_1');
 
     /* Attempt to connect to MySQL database */
     $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
@@ -30,7 +30,8 @@ if($environment == RyanDEV) {
     }
 	else
 	{
-        //echo "connected to db\n";  // TESTING
+        //echo "connected to db & ryan's config\n";  // TESTING
+
     }
 }
 else if($environment == YazanDEV) {
@@ -47,7 +48,7 @@ else if($environment == YazanDEV) {
     if($conn === false) {
         die("ERROR: Could not connect. " . mysqli_connect_error());
     }else {
-        //echo "connected to db\n";  // TESTING
+        echo "connected to db and yazan's config\n";  // TESTING
     }
 }
 else if($environment == YousefDEV) {
@@ -84,7 +85,7 @@ else if($environment == HannaDEV) {
     }
 	else
 	{
-        //echo "connected to db\n";  // TESTING
+        echo "connected to db\n";  // TESTING
     }
 } else {
     // production setup goes here, so can run on school servers
