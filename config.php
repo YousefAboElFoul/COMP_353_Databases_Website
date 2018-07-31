@@ -28,7 +28,8 @@ if($environment == RyanDEV) {
     if($conn === false) 
 	{
         die("ERROR: Could not connect. " . mysqli_connect_error());
-    } 
+    }
+	else
 	{
         //echo "connected to db\n";  // TESTING
     }
@@ -46,7 +47,7 @@ else if($environment == YazanDEV) {
 // Check connection
     if($conn === false) {
         die("ERROR: Could not connect. " . mysqli_connect_error());
-    } {
+    }else {
         //echo "connected to db\n";  // TESTING
     }
 }
@@ -63,7 +64,8 @@ else if($environment == YousefDEV) {
 // Check connection
     if($conn === false) {
         die("ERROR: Could not connect. " . mysqli_connect_error());
-    } {
+    }
+	else {
         //echo "connected to db\n";  // TESTING
     }
 }	
@@ -80,7 +82,9 @@ else if($environment == HannaDEV) {
 // Check connection
     if($conn === false) {
         die("ERROR: Could not connect. " . mysqli_connect_error());
-    } {
+    }
+	else
+	{
         //echo "connected to db\n";  // TESTING
     }
 } else {
