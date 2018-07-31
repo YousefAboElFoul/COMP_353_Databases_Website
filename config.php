@@ -10,6 +10,7 @@ const HannaDEV = "hannaDev";
 const PROD = "prod";  // production
 
 
+$environment = YazanDEV; // choose your dev here
 /* Database credentials. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
 
@@ -24,16 +25,16 @@ if($environment == RyanDEV) {
 
     $base_url = "/project/COMP_353_Databases_Website/";
 // Check connection
-    if($conn === false) {
+    if($conn === false) 
+	{
         die("ERROR: Could not connect. " . mysqli_connect_error());
-    } {
+    }
+	else
+	{
         //echo "connected to db\n";  // TESTING
     }
-} else {
-    // production setup goes here, so can run on school servers
 }
-
-if($environment == YazanDEV) {
+else if($environment == YazanDEV) {
     define('DB_SERVER', 'localhost');
     define('DB_USERNAME', 'root');
     define('DB_PASSWORD', '');
@@ -46,14 +47,11 @@ if($environment == YazanDEV) {
 // Check connection
     if($conn === false) {
         die("ERROR: Could not connect. " . mysqli_connect_error());
-    } {
+    }else {
         //echo "connected to db\n";  // TESTING
     }
-} else {
-    // production setup goes here, so can run on school servers
 }
-
-if($environment == YousefDEV) {
+else if($environment == YousefDEV) {
     define('DB_SERVER', 'localhost');
     define('DB_USERNAME', 'root');
     define('DB_PASSWORD', '');
@@ -66,14 +64,12 @@ if($environment == YousefDEV) {
 // Check connection
     if($conn === false) {
         die("ERROR: Could not connect. " . mysqli_connect_error());
-    } {
+    }
+	else {
         //echo "connected to db\n";  // TESTING
     }
-} else {
-    // production setup goes here, so can run on school servers
-}
-
-if($environment == HannaDEV) {
+}	
+else if($environment == HannaDEV) {
     define('DB_SERVER', 'localhost');
     define('DB_USERNAME', 'root');
     define('DB_PASSWORD', '');
@@ -86,7 +82,9 @@ if($environment == HannaDEV) {
 // Check connection
     if($conn === false) {
         die("ERROR: Could not connect. " . mysqli_connect_error());
-    } {
+    }
+	else
+	{
         //echo "connected to db\n";  // TESTING
     }
 } else {
