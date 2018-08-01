@@ -88,6 +88,24 @@ else if($environment == HannaDEV) {
     }
 } else {
     // production setup goes here, so can run on school servers
+    define('DB_SERVER', 'rcc353.encs.concordia.ca');
+    define('DB_USERNAME', 'rcc353_1');
+    define('DB_PASSWORD', 'RYYMH967');
+    define('DB_NAME', 'rcc353_1');
+
+    /* Attempt to connect to MySQL database */
+    $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+
+    $base_url = "/project/COMP_353_Databases_Website/";
+// Check connection
+    if($conn === false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+    }
+    else
+    {
+        //echo "connected to db\n";  // TESTING
+        echo "";
+    }
 }
 
 ?>
