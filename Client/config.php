@@ -8,8 +8,8 @@ server with default setting (user 'root' with no password) */
 if($environment == DEV) {
     define('DB_SERVER', 'localhost');
     define('DB_USERNAME', 'root');
-    define('DB_PASSWORD', '');
-    define('DB_NAME', 'yousef');
+    define('DB_PASSWORD', 'mysql');
+    define('DB_NAME', 'rcc353_1');
     /* Attempt to connect to MySQL database */
     $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
     $base_url = "/project/COMP_353_Databases_Website/";

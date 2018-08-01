@@ -1,7 +1,11 @@
+
+
+
 <?php
 
-// Initialize the session
+
 require_once 'config.php';
+// Initialize the session
 session_start();
 //// If session variable is not set it will redirect to login page
 //if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
@@ -32,20 +36,27 @@ Client Page
 <input type="submit" name="submitBtn" placeholder="Submit">
 
 </form>
-
+<li><em>Satisfaction:</em> <?php echo $_POST["name"]?></li>
 <?php
-//have to validate whether client has contracts or not
-$sql = "SELECT id FROM Contract , Client WHERE Contract.id=Client.id";
-if(!$sql){
-	echo "You dont have any active contracts";
-	header("location:welcome.php");
-}
-
- $data_in="INSERT INTO Client (name,phone_number, email, city,
- province,postal_code,satifaction) VALUES(""Yousef,"514770,"gmail",
- "Montreal","QC",'HR',satisfaction_in)";
-
+$link = mysqli_connect("localhost", "root", "", "yousef");
  
+// Check connection
+if($link === false){
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+ 
+// Attempt insert query execution
+$sql ="INSERT INTO Client (name,phone_number, email, city,
+ province,postal_code,satisfaction) VALUES('Yousef',5147702,'gmail',
+ 'Montreal','QC','HR','".$_POST["name"]."')";
+if(mysqli_query($link, $sql)){
+    echo "Records inserted successfully.";
+} else{
+    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+}
+ 
+// Close connection
+mysqli_close($link);
 echo "client will be able to see all active/expired contracts";
 echo "<br>";
 echo"\n\r clients will be able to provide my satifaction score";
