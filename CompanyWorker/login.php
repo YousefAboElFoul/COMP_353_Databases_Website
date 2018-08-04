@@ -9,16 +9,20 @@ require_once '../config.php'; // CHANGE THIS for production!
 // Define variables and initialize with empty values
 $username = $password = "";
 $username_err = $password_err = "";
+$employee_id = 0;
 
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+    //echo "working";
 
     // Check if username is empty
     if(empty(trim($_POST["username"]))){
         $username_err = 'Please enter username.';
+        //echo $username_err;
     } else{
         $username = trim($_POST["username"]);
+        //echo $username;
         //echo $username;  //TESTING
 
     }
@@ -33,15 +37,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
+        //echo "working 2";
         // Prepare a select statement
-        $sql = "SELECT * FROM Account INNER JOIN Employee ON user_id = Account.id
-                WHERE account_type=? AND Account.username =?";
 
+        $sql = "SELECT username, password, Employee.id FROM Account INNER JOIN Employee ON user_id = Account.id WHERE Account.username = ? AND Account.account_type =?";
         if($stmt = mysqli_prepare($conn, $sql)){
+           // echo "working 3";
+
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "is", $param1, $param2);
-            $param1 = 4; // for Employee
-            $param2 = $username;
+            mysqli_stmt_bind_param($stmt, "si", $param1, $param2);
+            $param2 = 4; // for Employee
+            $param1 = $username;
             //$param3 = $password;
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -53,8 +59,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 if(mysqli_num_rows($result) == 1){
                     $first_row =  mysqli_fetch_assoc($result);
                     $fetched_password = $first_row['password'];
+                    //$employee_id = $first_row['Employee.id'];
+                    $employee_id = $first_row['id'];
+
                     if($password == $fetched_password) {
                         $_SESSION['username'] = $username;
+                        $_SESSION['employee_id'] = $employee_id;
+                        //$_SESSION['employee_id'] = 3;
+
                         header("location: welcome.php");
                     } else{
                         // Display an error message if password is not valid
@@ -68,6 +80,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
+        } else {
+            echo "there was an error";
         }
 
         // Close statement
@@ -110,7 +124,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
         <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
             <label>Password</label>
-            <input type="password" name="password" class="form-control">
+            <input type="text" name="password" class="form-control"> <!-- pwrd -->
             <span class="help-block"><?php echo $password_err; ?></span>
         </div>
         <div class="form-group">

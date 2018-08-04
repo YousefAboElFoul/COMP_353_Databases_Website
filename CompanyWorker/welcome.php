@@ -7,6 +7,21 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
     header("location: login.php");
     exit;
 }
+
+// If session variable is not set it will redirect to login page
+if(isset($_SESSION['employee_id']) ){
+    echo "employee_id: " . $_SESSION['employee_id'];
+
+} else {
+    echo "employee_id: no set";
+
+}
+
+if( empty($_SESSION['employee_id'])){
+    echo "employee_id: empyt";
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -35,8 +50,9 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                 // Include config file
                 require_once '../config.php';
                 // Attempt select query execution
-                $sql = "SELECT * FROM company_worker";
+                $sql = "SELECT * FROM Employee INNER JOIN Account ON user_id = Account.id ";
                 if($result = mysqli_query($conn, $sql)){
+                    //echo "working";
                     if(mysqli_num_rows($result) > 0){
                         echo "<table class='table table-bordered table-striped'>";
                         echo "<thead>";
@@ -52,17 +68,21 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                         echo "<tbody>";
                         while($row = mysqli_fetch_array($result)){
                             $contract_type = "error";
-                            $contract_query = "SELECT name FROM contract_type WHERE id = ". $row['contract_type_id'];
+                            //echo "working2";
+
+                            $contract_query = "SELECT name FROM Contract_type WHERE id = ". $row['contract_type'];
                             if($contract_result = mysqli_query($conn, $contract_query)) {
+                               // echo "working3";
+
                                 $contract_type_rows = mysqli_fetch_array($contract_result);
                                 //$contract_type_row_zero = $contract_type_rows[0];
                                 $contract_type = $contract_type_rows['name'];
                             }
-                            if($_SESSION['username'] ==$row['user_name']){
+                            if($_SESSION['username'] ==$row['username']){
                                 echo "<tr>";
                                 echo "<td>" . $row['id'] . "</td>";
                                 echo "<td>" . $row['name'] . "</td>";
-                                echo "<td>" . $row['user_name'] . "</td>";
+                                echo "<td>" . $row['username'] . "</td>";
                                 echo "<td>" . $row['password'] . "</td>";
                                 echo "<td>". $contract_type . "</td>";
                                 echo "<td>";
