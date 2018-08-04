@@ -32,14 +32,29 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
         <input type="submit" value="Submit">
         <input type="reset" value="Reset">
     </form>
-	<!--<li><em>Satisfaction:</em> <?php echo $_POST["name"]?></li>-->
+	<!--<li><em>Satisfaction:</em> <?php// echo $_POST["name"]?></li>-->
 <?php
 require_once 'config.php';
+$UserInput = $_POST['Satisfaction_num'];
+$sql = "SELECT id FROM account WHERE username=?";
+	$client_id=0;
+                if($stmt = mysqli_prepare($conn, $sql)){
+                    mysqli_stmt_bind_param($stmt,  "s",  $param1);
+                    $param1 = $_SESSION['username'];
+                    if(mysqli_stmt_execute($stmt)) {
+                        $result = mysqli_stmt_get_result($stmt);
+                        if(mysqli_num_rows($result) == 1){
+                            $first_row = mysqli_fetch_assoc($result);
+                            $client_id = $first_row['id'];
+							
+                        }
+                    }
+                }
 
-$UserId = $_POST['Satisfaction_num'];
- 
+
+
 // Attempt insert query execution
-$sql ="INSERT INTO Client (client_satisfaction) VALUES('Satisfaction_num') WHERE client";
+$sql ="UPDATE Contract SET client_satisfaction=$UserInput WHERE client_id=$client_id";
 if(mysqli_query($conn, $sql)){
     echo "Records inserted successfully.";
 } else{
@@ -48,11 +63,11 @@ if(mysqli_query($conn, $sql)){
  
 // Close connection
 mysqli_close($conn);
-echo "client will be able to see all active/expired contracts";
-echo "<br>";
-echo"\n\r clients will be able to provide my satifaction score";
-echo "<br>";
-echo"\n\r clients will be able to check satisfaction score of all the contracts managed by the manager"
+//echo "client will be able to see all active/expired contracts";
+//echo "<br>";
+//echo"\n\r clients will be able to provide my satifaction score";
+//echo "<br>";
+//echo"\n\r clients will be able to check satisfaction score of all the contracts managed by the manager"
 
 
 
