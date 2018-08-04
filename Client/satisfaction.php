@@ -32,10 +32,12 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
         <input type="submit" value="Submit">
         <input type="reset" value="Reset">
     </form>
-	<!--<li><em>Satisfaction:</em> <?php// echo $_POST["name"]?></li>-->
 <?php
 require_once 'config.php';
-$UserInput = $_POST['Satisfaction_num'];
+if($_POST['Satisfaction_num']>0 and $_POST['Satisfaction_num']<10 )
+	{
+		$UserInput = $_POST['Satisfaction_num'];
+
 $sql = "SELECT id FROM account WHERE username=?";
 	$client_id=0;
                 if($stmt = mysqli_prepare($conn, $sql)){
@@ -68,6 +70,13 @@ mysqli_close($conn);
 //echo"\n\r clients will be able to provide my satifaction score";
 //echo "<br>";
 //echo"\n\r clients will be able to check satisfaction score of all the contracts managed by the manager"
+}
+else{
+	echo "Please enter a value between 0 and 9 " ;
+	mysqli_close($conn);
+	
+}
+
 
 
 
