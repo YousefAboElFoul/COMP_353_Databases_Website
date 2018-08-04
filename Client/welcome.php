@@ -33,7 +33,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 
                 </div>
                 <?php
-                echo "1: TEST  HERE";
+             //   echo "1: TEST  HERE";
 			  
               			  require_once 'config.php';
 							$client_id=0;
@@ -50,7 +50,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                         }
                     }
                 }
-                // Attempt select query execution
+               
 				
                 $sql = "SELECT * FROM contract WHERE client_id = ?";
                 if($stmt = mysqli_prepare($conn, $sql)) {
@@ -59,7 +59,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                     if(mysqli_stmt_execute($stmt)) {
                         $result = mysqli_stmt_get_result($stmt);
                         if(mysqli_num_rows($result) > 0){
-                            // THIS TABLE IS MISSING VALUES
+                           
                             echo "<table class='table table-bordered table-striped'>";
                             echo "<thead>";
                             echo "<tr>";
@@ -67,8 +67,9 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                             echo "<th>Responsible ID</th>";
                             echo "<th>ACV</th>";
                             echo "<th>Initial Amount</th>";
-                            echo "<th>Contract Type</th>";
-                            echo "<th>Manager ID</th>";
+                            echo "<th>Start Date</th>";
+							echo "<th>Service_type</th>";
+							echo "<th>Contract type</th>";
 							echo "<th>Satisfaction rating</th>";
                             echo "</tr>";
                             echo "</thead>";
@@ -86,12 +87,13 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                                 echo "<td>" . $row['responsible_id'] . "</td>";
                                 echo "<td>" . $row['acv'] . "</td>";
                                 echo "<td>" . $row['initial_amount'] . "</td>";
-                                echo "<td>". $row['contract_type'] . "</td>";
+                                echo "<td>". $row['start_date'] . "</td>";
+								echo "<td>". $row['service_type'] . "</td>";
+								echo "<td>". $row['contract_type'] . "</td>";
 								echo "<td>". $row['client_satisfaction'] . "</td>";
                                 echo "<td>";
-                                echo "<a href='update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
-                                echo "</td>";
-                                echo "</tr>";
+								echo "<a href='satisfaction.php?id=". $row['id'] ."' title='Update Your satisfaction' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
+								echo "</tr>";
                             }
                             echo "</tbody>";
                             echo "</table>";
@@ -111,5 +113,6 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 </div>
 
 <p><a href=<?php echo $base_url . "Manager/logout.php" ?> class="btn btn-danger">Sign Out of Your Account</a></p>
+<p>Want to view the Manager's Rating <a href="manager_rating.php">Click here</a>.</p>
 </body>
 </html>

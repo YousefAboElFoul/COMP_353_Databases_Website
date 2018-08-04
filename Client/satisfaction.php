@@ -31,6 +31,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
      
         <input type="submit" value="Submit">
         <input type="reset" value="Reset">
+		 <p>Go back <a href="welcome.php">Click here</a>.</p>
     </form>
 <?php
 require_once 'config.php';

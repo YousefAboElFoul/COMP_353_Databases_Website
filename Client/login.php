@@ -78,13 +78,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
     <style type="text/css">
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 350px; padding: 20px; }
+         body{ font: 14px sans-serif; text-align: center; }
+		  .wrapper{
+            width: 450px ;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
 <div class="wrapper">
-    <h2>Manager Login</h2>
+    <h2>Client Login</h2>
     <p>Please fill in your credentials to login.</p>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
