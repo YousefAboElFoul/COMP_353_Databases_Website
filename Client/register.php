@@ -64,9 +64,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     // Check input errors before inserting in database
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
-        
+        $type=5;
         // Prepare an insert statement
-        $sql = "INSERT INTO account (username, password, account_type) VALUES (?, ?,5)";
+        $sql = "INSERT INTO Account (username, password,account_type) 
+		VALUES ('?','?',$type)";
          
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
