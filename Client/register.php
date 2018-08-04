@@ -1,5 +1,4 @@
 <?php
-
 // Include config file
 require_once 'config.php';
  
@@ -14,15 +13,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["username"]))){
         $username_err = "Please enter a username.";
     } else{
-
         // Prepare a select statement
-        $sql = "SELECT id FROM Account WHERE Account.username = ?";
 		
+        $sql = "SELECT id FROM account WHERE username = ?";
         
-        if($stmt = mysqli_prepare($link, $sql)){
-			
+        if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "i", $param_username);
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
             
             // Set parameters
             $param_username = trim($_POST["username"]);
@@ -69,9 +66,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO ACCOUNT (username, password,account_type) VALUES (?, ?,5)";
+        $sql = "INSERT INTO account (username, password, account_type) VALUES (?, ?,5)";
          
-        if($stmt = mysqli_prepare($link, $sql)){
+        if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
             
@@ -93,7 +90,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     
     // Close connection
-    mysqli_close($link);
+    mysqli_close($conn);
 }
 ?>
  
