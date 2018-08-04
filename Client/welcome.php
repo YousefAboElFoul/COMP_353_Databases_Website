@@ -112,7 +112,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
     </div>
 </div>
 
-<p><a href=<?php echo $base_url . "Manager/logout.php" ?> class="btn btn-danger">Sign Out of Your Account</a></p>
+<p><a href=<?php echo  "logout.php" ?> class="btn btn-danger">Sign Out of Your Account</a></p>
 <p>Want to view the Manager's Rating <a href="manager_rating.php">Click here</a>.</p>
 </body>
 </html>
