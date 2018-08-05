@@ -100,32 +100,51 @@ CREATE TABLE IF NOT EXISTS Responsible (
 ) ENGINE=INNODB;
 INSERT INTO Responsible(first_name,last_name,middle_initial,client_id)Values('Ayman','Abo El Foul','S',1);
 INSERT INTO Responsible(first_name,last_name,middle_initial,client_id)Values('Loban','Fear','S',2);
-     
+
+
+DROP TABLE IF EXISTS Insurance_plan;
+CREATE TABLE IF NOT EXISTS Insurance_plan(
+    id INT UNSIGNED AUTO_INCREMENT,
+    name VARCHAR(30) NOT NULL,
+	  PRIMARY KEY(id)
+) ENGINE=INNODB;
+
+INSERT INTO Insurance_plan(name)
+  VALUES("Premium Employee Plan");
+
+INSERT INTO Insurance_plan(name)
+  VALUES("Silver Employee Plan");
+
+INSERT INTO Insurance_plan(name)
+  VALUES("Normal Employee Plan");
 	 
 DROP TABLE IF EXISTS Employee;
-	 CREATE TABLE IF NOT EXISTS Employee(
-    id INT UNSIGNED AUTO_INCREMENT, 
-    name VARCHAR(30) NOT NULL,
+	CREATE TABLE IF NOT EXISTS Employee(
+  id INT UNSIGNED AUTO_INCREMENT,
+  name VARCHAR(30) NOT NULL,
+  employee_plan_id INT UNSIGNED,
 	user_id INT UNSIGNED,
 	contract_type INT UNSIGNED,
 	PRIMARY KEY(id),
 	FOREIGN KEY(contract_type) REFERENCES Contract_type(id),
-    FOREIGN KEY (user_id) REFERENCES Account(id)
+  FOREIGN KEY (user_id) REFERENCES Account(id),
+  FOREIGN KEY(employee_plan_id) REFERENCES Employee_plan(id)
 ) ENGINE=INNODB;
-INSERT INTO Employee(name, user_id, contract_type)
-    VALUES("Fred Flintstone", 5, 3);
-    
-INSERT INTO Employee(name, user_id, contract_type)
-    VALUES("Ellen Degeneress", 6, 2);
-    
-INSERT INTO Employee(name, user_id, contract_type)
-    VALUES("Max Patches", 7, 1);
 
-INSERT INTO Employee(name, user_id, contract_type)
-    VALUES("Sonny Jim", 13, 1);
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id)
+    VALUES("Fred Flintstone", 5, 3, 1);
+    
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id)
+    VALUES("Ellen Degeneress", 6, 2, 2);
+    
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id)
+    VALUES("Max Patches", 7, 1, 3);
 
-INSERT INTO Employee(name, user_id, contract_type)
-    VALUES("Banana Sandwhich", 14, 1);
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id)
+    VALUES("Sonny Jim", 13, 1, 1);
+
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id)
+    VALUES("Banana Sandwhich", 14, 1, 2);
     
 
 
