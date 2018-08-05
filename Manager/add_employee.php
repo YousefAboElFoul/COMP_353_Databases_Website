@@ -14,7 +14,7 @@ require_once '../config.php';
 if(isset($_GET["contract_type_id"]) && !empty($_GET["contract_type_id"])) {
 // Get hidden input value
     $contract_type_id = $_GET["contract_type_id"];
-    //echo "Id is: " . $contract_type_id;
+    echo "Id is: " . $contract_type_id;
 } else {
     echo "Can't get contract_type_id";
 }
@@ -63,34 +63,37 @@ if(isset($_GET["contract_id"]) && !empty($_GET["contract_id"])) {
     echo "<table class='table table-bordered table-striped'>";
         echo "<thead>";
         echo "<tr>";
-            echo "<th>Id</th>";
-            echo "<th>Name</th>";
-            echo "<th>Preferred Contract Type Id</th>";
-            echo "<th>Manager Id</th>";
-            echo "<th></th>";
+        echo "<th>Employee Id</th>";
+        echo "<th>Employee Name</th>";
+        echo "<th>Preferred Contract Type</th>";
+        echo "<th></th>";
+
 
     echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
 ////////////////////////////
             // Attempt select query execution
-    $sql = "SELECT * FROM company_worker WHERE contract_type_id=?";
+    $sql = "SELECT Employee.id, Employee.name, Contract_type.name FROM Employee INNER JOIN
+            Contract_type ON Contract_type.id = Employee.contract_type WHERE Employee.contract_type=?";
     //$sql = "SELECT * FROM company_worker";
 
     if($stmt = mysqli_prepare($conn, $sql)) {
-        //echo "working";
+        echo "working prepared";
         mysqli_stmt_bind_param($stmt, "i", $param1);
         $param1 = $contract_type_id;
         if(mysqli_stmt_execute($stmt)) {
-            //echo "working2";
+            echo "working2";
             $result = mysqli_stmt_get_result($stmt);
             while($row = mysqli_fetch_array($result)){
-                //echo "working3";
-                echo "<tr>";
-                echo "<td>" . $row['id'] . "</td>";
-                echo "<td>" . $row['name'] . "</td>";
-                echo "<td>" . $row['contract_type_id'] . "</td>";
-                echo "<td>" . $row['manager_id' ] . "</td>";
+                echo "working3";
+                //echo $row;
+
+
+                echo "<td>" . $row[0] . "</td>";
+                echo "<td>" . $row[1] . "</td>";
+                echo "<td>" . $row[2] . "</td>";
+                // echo "<td>" . $row['manager_id' ] . "</td>";
                 echo "<td>";
                 echo  "<p><a href=" . $base_url . "Manager/employee_added.php?emp_id=". $row['id'].
                         "&contract_id=". $contract_id . " class='btn btn-success'>Add</a></p>";

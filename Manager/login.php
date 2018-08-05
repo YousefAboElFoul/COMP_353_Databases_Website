@@ -34,7 +34,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT * FROM manager WHERE user_name = ?";
+        $sql = "SELECT username, password, Manager.id FROM Account INNER JOIN Manager ON user_id = Account.id WHERE Account.username = ? AND Account.account_type = 3";
+        ;
 
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -50,8 +51,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 if(mysqli_num_rows($result) == 1){
                     $first_row =  mysqli_fetch_assoc($result);
                     $fetched_password = $first_row['password'];
+                    $manager_id = $first_row['id'];
                     if($password == $fetched_password) {
                         $_SESSION['username'] = $username;
+                        $_SESSION['manager_id'] = $manager_id;
+
                         header("location: welcome.php");
                     } else{
                         // Display an error message if password is not valid

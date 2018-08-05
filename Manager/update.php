@@ -71,33 +71,42 @@ if(!isset($_GET["id"]) ) {
             echo "<th>Responsible ID</th>";
             echo "<th>ACV</th>";
             echo "<th>Initial Amount</th>";
+            echo "<th>Start Date</th>";
             echo "<th>Contract Type</th>";
-            echo "<th>Manager ID</th>";
-            echo "</tr>";
+
+            echo "<th>Service Type</th>";
+        echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
 ////////////////////////////
             // Attempt select query execution
-    $sql = "SELECT * FROM contract WHERE id=?";
+    $sql = "SELECT Contract.id AS con_id, Contract.client_id, Contract.responsible_id, Contract.acv, Contract.initial_amount,
+            Contract.service_type, Contract.client_satisfaction, Contract_type.name AS Con_name, Contract_type.id AS Con_type_id,  Service_type.name
+            AS Serv_name, DATE(Contract.start_date) AS date FROM Contract_type INNER JOIN Contract ON 
+            Contract.contract_type = Contract_type.id INNER JOIN Service_type ON Contract.service_type = 
+            Service_type.id WHERE Contract.id=?";
     $contract_type_id = 0;
 
     if($stmt = mysqli_prepare($conn, $sql)) {
-        mysqli_stmt_bind_param($stmt, "s", $param1);
+        mysqli_stmt_bind_param($stmt, "i", $param1);
         $param1 = $contract_id;
         if(mysqli_stmt_execute($stmt)) {
             $result = mysqli_stmt_get_result($stmt);
             if(mysqli_num_rows($result) == 1) {
                 $row = mysqli_fetch_assoc($result);
-                $contract_type_id = $row['contract_type'];
+                $contract_type_id = $row['Con_type_id'];
                 //echo "working: " . $row['id'];
+                //echo $row[0];
                 echo "<tr>";
-                echo "<td>" . $row['id'] . "</td>";
+                echo "<td>" . $row['con_id'] . "</td>";
                 echo "<td>" . $row['responsible_id'] . "</td>";
                 echo "<td>" . $row['acv'] . "</td>";
                 echo "<td>" . $row['initial_amount'] . "</td>";
+                echo "<td>". $row['date'] . "</td>";
+                echo "<td>". $row['Con_name'] . "</td>";
 
-                echo "<td>". $row['contract_type'] . "</td>";
-                echo "<td>". $row['manager_id'] . "</td>";
+                echo "<td>". $row['Serv_name'] . "</td>";
+
                 echo "</tr>";
             }
         }
@@ -117,12 +126,14 @@ if(!isset($_GET["id"]) ) {
     echo "</thead>";
     echo "<tbody>";
 //////////////////////////////////////////////////////////
-    $sql = "SELECT company_worker.id, company_worker.name, contract_worker.hours_worked FROM contract_worker INNER JOIN 
-            company_worker ON 
-            contract_worker.company_worker_id = company_worker.id WHERE
-            contract_worker.contract_id = ?";
+    /// // START HERE
+    $sql = "SELECT Employee.id, Employee.name, Contract_Employee.hours_worked 
+            FROM Contract_Employee INNER JOIN Employee ON 
+            Contract_Employee.employee_id = Employee.id  WHERE
+            Contract_Employee.contract_id = ?";
 
     if($stmt = mysqli_prepare($conn, $sql)) {
+       // echo "working";
         mysqli_stmt_bind_param($stmt, "i", $param1);
         $param1 = $contract_id;
         if(mysqli_stmt_execute($stmt)) {
@@ -142,6 +153,8 @@ if(!isset($_GET["id"]) ) {
 
             }
         }
+    } else {
+        echo "SQL stmt not prepared";
     }
 /////////////////////////////////////////////////////////
     echo "</tbody>";

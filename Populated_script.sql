@@ -31,11 +31,16 @@ INSERT INTO Account(username,password,account_type)VALUES('HANABANANA','ubadass'
 INSERT INTO Account(username,password,account_type) VALUES('THUGMAN','nopass',4);
 INSERT INTO Account(username,password,account_type) VALUES('WHYYoulikedat','4545A',4);
 INSERT INTO Account(username,password,account_type)VALUES('PRINCE EL LYAL','BB123',4);
-INSERT INTO Account(username,password,account_type)VALUES('ESHQ HERE','notbada',3);
+INSERT INTO Account(username,password,account_type)VALUES('manager_user','pwrd',3);
 INSERT INTO Account(username,password,account_type)VALUES('THOMAS ANDRESON','passisme',3);
 INSERT INTO Account(username,password,account_type) VALUES('DEVIANT_CONOOR','BB123',1);
 INSERT INTO Account(username,password,account_type) VALUES('BRADLEY MARTYN','ZOOGYM',2);
 INSERT INTO Account(username,password,account_type) VALUES('NICK Power','Strength',2);
+
+
+INSERT INTO Account(username,password,account_type) VALUES('rion_nikols','pwrd',1);
+INSERT INTO Account(username,password,account_type) VALUES('ryan_nichols','pwrd',1);
+INSERT INTO Account(username,password,account_type) VALUES('NICK_Power','pwrd',1);
 
 
 
@@ -107,14 +112,20 @@ DROP TABLE IF EXISTS Employee;
 	FOREIGN KEY(contract_type) REFERENCES Contract_type(id),
     FOREIGN KEY (user_id) REFERENCES Account(id)
 ) ENGINE=INNODB;
-INSERT INTO Employee(name,user_id, contract_type) 
+INSERT INTO Employee(name, user_id, contract_type)
     VALUES("Fred Flintstone", 5, 3);
     
-INSERT INTO Employee(name,user_id, contract_type)
-    VALUES("Ellen Degeneress", 6,2);
+INSERT INTO Employee(name, user_id, contract_type)
+    VALUES("Ellen Degeneress", 6, 2);
     
-INSERT INTO Employee(name,user_id, contract_type)
-    VALUES("Max Patches", 7,1);
+INSERT INTO Employee(name, user_id, contract_type)
+    VALUES("Max Patches", 7, 1);
+
+INSERT INTO Employee(name, user_id, contract_type)
+    VALUES("Sonny Jim", 13, 1);
+
+INSERT INTO Employee(name, user_id, contract_type)
+    VALUES("Banana Sandwhich", 14, 1);
     
 
 
@@ -188,6 +199,7 @@ DROP TABLE IF EXISTS Contract_Employee;
 CREATE TABLE IF NOT EXISTS Contract_Employee(
   contract_id INT UNSIGNED,
   employee_id INT UNSIGNED,
+  hours_worked INT UNSIGNED,
   PRIMARY KEY(contract_id,employee_id),
   FOREIGN KEY(contract_id) REFERENCES Contract(id),
   FOREIGN KEY(employee_id) REFERENCES Employee(id)
@@ -210,7 +222,7 @@ INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_typ
 
 # contract type is 1 for this 1st contract therefore we need an employee whos preferred
 # contract type is 1 therefor Max Patches the third employee created --> employee_id = 3
-INSERT INTO Contract_Employee(contract_id, employee_id) VALUES(1, 3);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 3, 40);
 INSERT INTO Contract_Manager(contract_id, manager_id) VALUES(1, 1);
 
 
