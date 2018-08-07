@@ -250,8 +250,12 @@ CREATE TABLE IF NOT EXISTS Contract_Manager(
 
 INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type)
   VALUES(1, 1, 90000, 20000, 1, 1);
-  INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type)
+INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type)
   VALUES(2, 2, 100000, 20000, 1, 1);
+INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type)
+  VALUES(2, 1, 85000, 20000, 2, 3);
+INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type)
+  VALUES(2, 2, 110000, 20000, 2, 3);
 
 # contract type is 1 for this 1st contract therefore we need an employee whos preferred
 # contract type is 1 therefor Max Patches the third employee created --> employee_id = 3
