@@ -21,7 +21,7 @@ if(isset($_GET["emp_id"]) && !empty($_GET["emp_id"])) {
 //    echo "type: " . gettype($_GET["emp_id"]);
 }
 
-$sql = "DELETE FROM contract_worker WHERE company_worker_id=? AND contract_id=?";
+$sql = "DELETE FROM Contract_Employee WHERE employee_id=? AND contract_id=?";
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "ii", $param1,$param2);
 $param1 = $employee_id;

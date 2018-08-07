@@ -23,7 +23,7 @@ if(isset($_GET["contract_id"]) && !empty($_GET["contract_id"])) {
     echo "Can't get contract_id";
 }
 
-$sql = "SELECT * FROM contract_worker WHERE company_worker_id =? AND contract_id = ?";
+$sql = "SELECT * FROM Contract_Employee WHERE employee_id =? AND contract_id = ?";
 if($stmt = mysqli_prepare($conn, $sql)) {
     mysqli_stmt_bind_param($stmt, "ii", $param1, $param2);
     $param1 = $employee_id;
@@ -40,14 +40,14 @@ if($stmt = mysqli_prepare($conn, $sql)) {
     }
 }
 
-$sql = "INSERT INTO contract_worker(company_worker_id, contract_id, hours_worked) VALUES (?, ?, ?)";
+$sql = "INSERT INTO Contract_Employee(employee_id, contract_id, hours_worked) VALUES (?, ?, ?)";
 if($stmt = mysqli_prepare($conn, $sql) ) {
     mysqli_stmt_bind_param($stmt, "iii", $param1, $param2, $param3);
     $param1 = $employee_id;
     $param2 = $contract_id;
     $pos = array_rand($hours_worked);
     $param3 = 30 + $hours_worked[$pos];
-    echo "param3: ". $param3;
+    //echo "param3: ". $param3;
 
     if (mysqli_stmt_execute($stmt)) {
         // Redirect to welcome page

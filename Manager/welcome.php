@@ -7,6 +7,13 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
     header("location: login.php");
     exit;
 }
+
+if(isset($_SESSION['manager_id']) && !empty($_SESSION['manager_id'])) {
+    $manager_id = $_SESSION['manager_id'];
+    //echo "manager_id = ". $manager_id;
+} else {
+    echo "No manager id";
+}
 ?>
 
 <!DOCTYPE html>
@@ -40,24 +47,26 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                 // THIS CONTRACT
                 // Include config file
                 require_once '../config.php';
-                $manager_id = 0;
-                $sql = "SELECT id FROM manager WHERE user_name = ?";
-                if($stmt = mysqli_prepare($conn, $sql)){
-                    mysqli_stmt_bind_param($stmt,  "s",  $param1);
-                    $param1 = $_SESSION['username'];
-                    if(mysqli_stmt_execute($stmt)) {
-                        $result = mysqli_stmt_get_result($stmt);
-                        if(mysqli_num_rows($result) == 1){
-                            $first_row = mysqli_fetch_assoc($result);
-                            $manager_id = $first_row['id'];
-                        }
-                    }
-                }
+                //$manager_id = 0;
 
-                // Attempt select query execution
-                $sql = "SELECT * FROM contract WHERE manager_id = ?";
+                $sql = "SELECT 
+                          Contract.id AS Con_id, 
+                          Contract.client_id, 
+                          Contract.responsible_id , 
+                          Contract.acv , 
+                          Contract.initial_amount ,
+                          Contract.start_date ,
+                          Contract.service_type ,
+                          Contract.contract_type ,
+                          Contract.client_satisfaction FROM Manager INNER JOIN ContractManager ON 
+                          Manager.id = ContractManager.manager_id 
+                          INNER JOIN Contract ON Contract.id = ContractManager.contract_id WHERE 
+                          ContractManager.manager_id = ?
+                        ";
+
+
                 if($stmt = mysqli_prepare($conn, $sql)) {
-                    mysqli_stmt_bind_param($stmt, "s", $param1);
+                    mysqli_stmt_bind_param($stmt, "i", $param1);
                     $param1 = $manager_id;
                     if(mysqli_stmt_execute($stmt)) {
                         $result = mysqli_stmt_get_result($stmt);
@@ -72,7 +81,8 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                             echo "<th>ACV</th>";
                             echo "<th>Initial Amount</th>";
                             echo "<th>Contract Type</th>";
-                            echo "<th>Manager ID</th>";
+                            echo "<th></th>";
+
                             echo "</tr>";
                             echo "</thead>";
                             echo "<tbody>";
@@ -85,14 +95,14 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                                     $contract_type = $contract_type_rows['name'];
                                 }
                                 echo "<tr>";
-                                echo "<td>" . $row['company_id'] . "</td>";
+                                echo "<td>" . $row['Con_id'] . "</td>";
                                 echo "<td>" . $row['responsible_id'] . "</td>";
                                 echo "<td>" . $row['acv'] . "</td>";
                                 echo "<td>" . $row['initial_amount'] . "</td>";
 
                                 echo "<td>". $row['contract_type'] . "</td>";
                                 echo "<td>";
-                                echo "<a href='update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
+                                echo "<a href='update.php?id=". $row['Con_id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
                                 echo "</td>";
                                 echo "</tr>";
                             }
@@ -104,8 +114,10 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                         }else{
                             echo "<p class='lead'><em>No records were found.</em></p>";
                         }
+                    } else {
+                        echo "Could not executd sql statement";
                     }
-                }
+               }
 
                 // Close connection
                 mysqli_close($conn);

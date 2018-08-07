@@ -18,7 +18,7 @@ if(isset($_SESSION['employee_id']) ){
 }
 
 if( empty($_SESSION['employee_id'])){
-    echo "employee_id: empyt";
+    echo "employee_id: empty";
 }
 
 
@@ -62,6 +62,7 @@ if( empty($_SESSION['employee_id'])){
                         echo "<th>Username</th>";
                         echo "<th>Password</th>";
                         echo "<th>Contract Type</th>";
+                        echo "<th>Insurance Type</th>";
                         echo "<th>Action</th>";
                         echo "</tr>";
                         echo "</thead>";
@@ -77,6 +78,17 @@ if( empty($_SESSION['employee_id'])){
                                 $contract_type_rows = mysqli_fetch_array($contract_result);
                                 //$contract_type_row_zero = $contract_type_rows[0];
                                 $contract_type = $contract_type_rows['name'];
+
+                            }
+
+                            $insurance_query = "SELECT name FROM Insurance_plan WHERE id = ". $row['employee_plan_id'];
+                            if($insurance_result = mysqli_query($conn, $insurance_query)) {
+                                // echo "working3";
+
+                                $insurance_rows = mysqli_fetch_array($contract_result);
+                                //$contract_type_row_zero = $contract_type_rows[0];
+                                $insurance_type = $contract_type_rows['name'];
+
                             }
                             if($_SESSION['username'] ==$row['username']){
                                 echo "<tr>";
@@ -85,6 +97,7 @@ if( empty($_SESSION['employee_id'])){
                                 echo "<td>" . $row['username'] . "</td>";
                                 echo "<td>" . $row['password'] . "</td>";
                                 echo "<td>". $contract_type . "</td>";
+                                echo "<td>". $insurance_type . "</td>";
                                 echo "<td>";
                                 echo "<a href='#'><span class='glyphicon glyphicon-eye-open'></span></a>";
                                 echo "<a href='update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";

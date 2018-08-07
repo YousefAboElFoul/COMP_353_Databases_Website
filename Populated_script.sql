@@ -24,18 +24,36 @@ CREATE TABLE IF NOT EXISTS Account(
   FOREIGN KEY (account_type) REFERENCES AccountType(id)
 )ENGINE=INNODB;
 
+# 1
 INSERT INTO Account(username,password,account_type) VALUES('MOMO','123456',5);
+# 2
 INSERT INTO Account(username,password,account_type) VALUES('Ryan','4588AA',5);
+# 3
 INSERT INTO Account(username,password,account_type) VALUES('Yosuef','BB123',5);
+# 4
 INSERT INTO Account(username,password,account_type)VALUES('HANABANANA','ubadass',5);
+# 5
 INSERT INTO Account(username,password,account_type) VALUES('THUGMAN','nopass',4);
+# 6
 INSERT INTO Account(username,password,account_type) VALUES('WHYYoulikedat','4545A',4);
+# 7
 INSERT INTO Account(username,password,account_type)VALUES('PRINCE EL LYAL','BB123',4);
-INSERT INTO Account(username,password,account_type)VALUES('ESHQ HERE','notbada',3);
+# 8
+INSERT INTO Account(username,password,account_type)VALUES('manager_user','pwrd',3);
+# 9
 INSERT INTO Account(username,password,account_type)VALUES('THOMAS ANDRESON','passisme',3);
+# 10
 INSERT INTO Account(username,password,account_type) VALUES('DEVIANT_CONOOR','BB123',1);
+# 11
 INSERT INTO Account(username,password,account_type) VALUES('BRADLEY MARTYN','ZOOGYM',2);
+# 12
 INSERT INTO Account(username,password,account_type) VALUES('NICK Power','Strength',2);
+# 13
+INSERT INTO Account(username,password,account_type) VALUES('rion_nikols','pwrd',1);
+# 14
+INSERT INTO Account(username,password,account_type) VALUES('ryan_nichols','pwrd',1);
+#15
+INSERT INTO Account(username,password,account_type) VALUES('NICK_Power','pwrd',1);
 
 
 
@@ -95,26 +113,52 @@ CREATE TABLE IF NOT EXISTS Responsible (
 ) ENGINE=INNODB;
 INSERT INTO Responsible(first_name,last_name,middle_initial,client_id)Values('Ayman','Abo El Foul','S',1);
 INSERT INTO Responsible(first_name,last_name,middle_initial,client_id)Values('Loban','Fear','S',2);
-     
+
+
+DROP TABLE IF EXISTS Insurance_plan;
+CREATE TABLE IF NOT EXISTS Insurance_plan(
+    id INT UNSIGNED AUTO_INCREMENT,
+    name VARCHAR(30) NOT NULL,
+	  PRIMARY KEY(id)
+) ENGINE=INNODB;
+
+INSERT INTO Insurance_plan(name)
+  VALUES("Premium Employee Plan");
+
+INSERT INTO Insurance_plan(name)
+  VALUES("Silver Employee Plan");
+
+INSERT INTO Insurance_plan(name)
+  VALUES("Normal Employee Plan");
 	 
 DROP TABLE IF EXISTS Employee;
-	 CREATE TABLE IF NOT EXISTS Employee(
-    id INT UNSIGNED AUTO_INCREMENT, 
-    name VARCHAR(30) NOT NULL,
+	CREATE TABLE IF NOT EXISTS Employee(
+  id INT UNSIGNED AUTO_INCREMENT,
+  name VARCHAR(30) NOT NULL,
+  employee_plan_id INT UNSIGNED,
 	user_id INT UNSIGNED,
 	contract_type INT UNSIGNED,
+	home_province VARCHAR(30),
 	PRIMARY KEY(id),
 	FOREIGN KEY(contract_type) REFERENCES Contract_type(id),
-    FOREIGN KEY (user_id) REFERENCES Account(id)
+  FOREIGN KEY (user_id) REFERENCES Account(id),
+  FOREIGN KEY(employee_plan_id) REFERENCES Employee_plan(id)
 ) ENGINE=INNODB;
-INSERT INTO Employee(name,user_id, contract_type) 
-    VALUES("Fred Flintstone", 5, 3);
+
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Fred Flintstone", 5, 3, 1, "Quebec");
     
-INSERT INTO Employee(name,user_id, contract_type)
-    VALUES("Ellen Degeneress", 6,2);
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Ellen Degeneress", 6, 2, 2, "Quebec");
     
-INSERT INTO Employee(name,user_id, contract_type)
-    VALUES("Max Patches", 7,1);
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Max Patches", 7, 1, 3, "Quebec");
+
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Sonny Jim", 13, 1, 1, "Quebec");
+
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Banana Sandwhich", 14, 1, 2, "Quebec");
     
 
 
@@ -188,6 +232,7 @@ DROP TABLE IF EXISTS Contract_Employee;
 CREATE TABLE IF NOT EXISTS Contract_Employee(
   contract_id INT UNSIGNED,
   employee_id INT UNSIGNED,
+  hours_worked INT UNSIGNED,
   PRIMARY KEY(contract_id,employee_id),
   FOREIGN KEY(contract_id) REFERENCES Contract(id),
   FOREIGN KEY(employee_id) REFERENCES Employee(id)
@@ -210,7 +255,7 @@ INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_typ
 
 # contract type is 1 for this 1st contract therefore we need an employee whos preferred
 # contract type is 1 therefor Max Patches the third employee created --> employee_id = 3
-INSERT INTO Contract_Employee(contract_id, employee_id) VALUES(1, 3);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 3, 40);
 INSERT INTO Contract_Manager(contract_id, manager_id) VALUES(1, 1);
 
 
