@@ -61,13 +61,13 @@ if(isset($_SESSION['manager_id']) && !empty($_SESSION['manager_id'])) {
                           Contract.client_satisfaction FROM Manager INNER JOIN ContractManager ON 
                           Manager.id = ContractManager.manager_id 
                           INNER JOIN Contract ON Contract.id = ContractManager.contract_id WHERE 
-                          ContractManager.manager_id = 1
+                          ContractManager.manager_id = ?
                         ";
 
 
                 if($stmt = mysqli_prepare($conn, $sql)) {
-                   // mysqli_stmt_bind_param($stmt, "i", $param1);
-                    //$param1 = $manager_id;
+                    mysqli_stmt_bind_param($stmt, "i", $param1);
+                    $param1 = $manager_id;
                     if(mysqli_stmt_execute($stmt)) {
                         $result = mysqli_stmt_get_result($stmt);
                         if(mysqli_num_rows($result) > 0){

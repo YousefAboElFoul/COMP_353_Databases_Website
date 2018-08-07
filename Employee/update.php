@@ -41,10 +41,25 @@
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href=<?php echo $base_url . "CompanyWorker/SetContractCategory/premium.php" ?> >Premium</a></li>
-            <li><a href=<?php echo $base_url . "CompanyWorker/SetContractCategory/diamond.php" ?> >Diamond</a></li>
-            <li><a href=<?php echo $base_url . "CompanyWorker/SetContractCategory/gold.php" ?> >Gold</a></li>
-            <li><a href=<?php echo $base_url . "CompanyWorker/SetContractCategory/silver.php" ?> >Silver</a></li>
+            <li><a href=<?php echo $base_url . "Employee/SetContractCategory/premium.php" ?> >Premium</a></li>
+            <li><a href=<?php echo $base_url . "Employee/SetContractCategory/diamond.php" ?> >Diamond</a></li>
+            <li><a href=<?php echo $base_url . "Employee/SetContractCategory/gold.php" ?> >Gold</a></li>
+            <li><a href=<?php echo $base_url . "Employee/SetContractCategory/silver.php" ?> >Silver</a></li>
+        </ul>
+    </div>
+
+
+    <h3>Here you can select your Employee Insurance Plan </h3>
+
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Dropdown
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href=<?php echo $base_url . "Employee/Insurance/premium.php" ?> >Premium</a></li>
+            <li><a href=<?php echo $base_url . "Employee/Insurance/silver.php" ?> >Silver</a></li>
+            <li><a href=<?php echo $base_url . "Employee/Insurance/normal.php" ?> >Normal</a></li>
         </ul>
     </div>
 </body>
