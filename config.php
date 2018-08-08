@@ -55,7 +55,7 @@ else if($environment == YousefDEV) {
     define('DB_SERVER', 'localhost');
     define('DB_USERNAME', 'root');
     define('DB_PASSWORD', '');
-    define('DB_NAME', 'yousef');
+    define('DB_NAME', 'rcc353_1');
 
     /* Attempt to connect to MySQL database */
     $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
