@@ -4,7 +4,7 @@ session_start();
 
 // If session variable is not set it will redirect to login page
 if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
-    header("location: login.php");
+    header("location: ". $base_url . "/Manager/login.php");
     exit;
 }
 
@@ -115,7 +115,7 @@ if(isset($_SESSION['manager_id']) && !empty($_SESSION['manager_id'])) {
                             echo "<p class='lead'><em>No records were found.</em></p>";
                         }
                     } else {
-                        echo "Could not executd sql statement";
+                        echo "Could not execute sql statement";
                     }
                }
 

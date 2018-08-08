@@ -5,7 +5,7 @@ require_once '../config.php';
 
 // If session variable is not set it will redirect to login page
 if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
-    header("location: login.php");
+    header("location: " . $base_url . "Manager/logout.php");
     exit;
 }
 
@@ -23,7 +23,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 </head>
 <body>
     <div class="page-header">
-        <h1>Hi, <b><?php echo htmlspecialchars($_SESSION['username']); ?></b>. Welcome to our site.</h1>
+        <h1>Hi, <b><?php echo htmlspecialchars($_SESSION['username']); ?></b></h1>
     </div>
     <div>
         <h2><br><b>Reports</b></h2>
@@ -32,7 +32,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
     </div>
 
     <div>
-        <h3>2. Contracts signed in the last 10 days</h3>
+        <h3>2. Contracts signed in the last 10 days by Sales Associate</h3>
         <p><a href="ten_days.php" class="btn btn-success">Go</a></p>
     </div>
 
