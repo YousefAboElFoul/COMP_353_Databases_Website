@@ -213,17 +213,20 @@ CREATE TABLE IF NOT EXISTS Contract (
     start_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     service_type INT UNSIGNED,
     contract_type INT UNSIGNED,
-	client_satisfaction INT DEFAULT NULL,
-	CONSTRAINT satisfaction_chk CHECK (client_satisfaction BETWEEN 1 AND 10),
+    sales_associate INT UNSIGNED,
+	  client_satisfaction INT DEFAULT NULL,
+	  CONSTRAINT satisfaction_chk CHECK (client_satisfaction BETWEEN 1 AND 10),
     PRIMARY KEY(id),
     INDEX(client_id),
     INDEX(contract_type),
     INDEX(service_type),
     INDEX(responsible_id),
+    INDEX(sales_associate),
     FOREIGN KEY(client_id) REFERENCES Client(id),
     FOREIGN KEY(service_type) REFERENCES Service_type(id),
     FOREIGN KEY(contract_type) REFERENCES Contract_type(id),
-    FOREIGN KEY(responsible_id) REFERENCES Responsible(id)
+    FOREIGN KEY(responsible_id) REFERENCES Responsible(id),
+    FOREIGN KEY(sales_associate) REFERENCES SalesAssociate(id)
 ) ENGINE=INNODB;
 
 
@@ -248,14 +251,14 @@ CREATE TABLE IF NOT EXISTS Contract_Manager(
 )ENGINE=INNODB;
 
 
-INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type)
-  VALUES(1, 1, 90000, 20000, 1, 1);
-INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type)
-  VALUES(2, 2, 100000, 20000, 1, 1);
-INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type)
-  VALUES(2, 1, 85000, 20000, 2, 3);
-INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type)
-  VALUES(2, 2, 110000, 20000, 2, 3);
+INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type, sales_associate)
+  VALUES(1, 1, 90000, 20000, 1, 1, 1);
+INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type, sales_associate)
+  VALUES(2, 2, 100000, 20000, 1, 1, 1);
+INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type, sales_associate)
+  VALUES(2, 1, 85000, 20000, 2, 3, 2);
+INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type, sales_associate)
+  VALUES(2, 2, 110000, 20000, 2, 3, 2);
 
 # contract type is 1 for this 1st contract therefore we need an employee whos preferred
 # contract type is 1 therefor Max Patches the third employee created --> employee_id = 3

@@ -6,7 +6,7 @@ require_once '../config.php';
 
 // If session variable is not set it will redirect to login page
 if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
-    header("location: login.php");
+    header("location: ". $base_url . "Manager/login.php");
     exit;
 }
 
@@ -35,32 +35,19 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
         <div class="row">
             <div class="col-md-12">
                 <div class="page-header clearfix">
-                    <h2 class="pull-left">All Gold Contracts</h2>
+                    <h2 class="pull-left">Contracts From Last 10 Days by Sales Associate </h2>
 
                 </div>
                 <?php
 
                 //$manager_id = 0;
 
-                $sql = "SELECT 
-                          Contract.id AS con_id, 
-                          Contract.client_id, 
-                          Contract.responsible_id , 
-                          Contract.acv , 
-                          Contract.initial_amount ,
-                          Contract.start_date ,
-                          Contract.service_type ,
-                          Contract.contract_type ,
-                          Contract.client_satisfaction,
-                          Contract_type.name AS con_type_name FROM Contract INNER JOIN Contract_type ON 
-                          Contract.contract_type = Contract_type.id
-                          WHERE Contract.contract_type = ?
-                        ";
+                $sql = "SELECT * FROM SalesAssociate";
 
 
                 if($stmt = mysqli_prepare($conn, $sql)) {
-                    mysqli_stmt_bind_param($stmt, "i", $param1);
-                    $param1 = 3;  // Gold is 3
+                    //mysqli_stmt_bind_param($stmt, "i", $param1);
+                    //$param1 = 3;  // Gold is 3
                     if(mysqli_stmt_execute($stmt)) {
                         $result = mysqli_stmt_get_result($stmt);
                         if(mysqli_num_rows($result) > 0){
@@ -69,30 +56,17 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                             echo "<table class='table table-bordered table-striped'>";
                             echo "<thead>";
                             echo "<tr>";
-                            echo "<th>Contract Id</th>";
-                            echo "<th>Responsible ID</th>";
-                            echo "<th>ACV</th>";
-                            echo "<th>Initial Amount</th>";
-                            echo "<th>Contract Type</th>";
-
+                            echo "<th>Sales Associate</th>";
+                            echo "<th>View Contracts</th>";
                             echo "</tr>";
                             echo "</thead>";
                             echo "<tbody>";
                             while($row = mysqli_fetch_array($result)){
-                                $contract_type = "error";
-                                $contract_query = "SELECT name FROM contract_type WHERE id = ". $row['contract_type_id'];
-                                if($contract_result = mysqli_query($conn, $contract_query)) {
-                                    $contract_type_rows = mysqli_fetch_array($contract_result);
-                                    //$contract_type_row_zero = $contract_type_rows[0];
-                                    $contract_type = $contract_type_rows['name'];
-                                }
                                 echo "<tr>";
-                                echo "<td>" . $row['con_id'] . "</td>";
-                                echo "<td>" . $row['responsible_id'] . "</td>";
-                                echo "<td>" . $row['acv'] . "</td>";
-                                echo "<td>" . $row['initial_amount'] . "</td>";
-
-                                echo "<td>". $row['con_type_name'] . "</td>";
+                                echo "<td>" . $row['name'] . "</td>";
+                                echo "<td>";
+                                echo "<a href='view.php?sales_id=". $row['id'] ."&sales_name=". $row['name'] . "' title='View Contracts' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
+                                echo "</td>";
                                 echo "</tr>";
                             }
                             echo "</tbody>";
@@ -115,7 +89,5 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
         </div>
     </div>
 </div>
-
-<p><a href=<?php echo $base_url . "Manager/logout.php" ?> class="btn btn-danger">Sign Out of Your Account</a></p>
 </body>
 </html>
