@@ -10,7 +10,7 @@ const HannaDEV = "hannaDev";
 const PROD = "prod";  // production
 
 
-$environment = RyanDEV; // choose your dev here
+$environment = YazanDEV; // choose your dev here
 /* Database credentials. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
 
