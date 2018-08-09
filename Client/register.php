@@ -199,30 +199,30 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		
         <div class="form-group <?php echo (!empty($phone_number_err)) ? 'has-error' : ''; ?>">
             <label>Phone-Number</label>
-            <input type="text" name="name"class="form-control" value="<?php echo $phone_number; ?>">
+            <input type="number" name="phone_number"class="form-control" value="<?php echo $phone_number; ?>">
             <span class="help-block"><?php echo $phone_number_err; ?></span>
         </div>
 		
         <div class="form-group <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
             <label>email</label>
-            <input type="text" name="name"class="form-control" value="<?php echo $email; ?>">
+            <input type="text" name="email"class="form-control" value="<?php echo $email; ?>">
             <span class="help-block"><?php echo $email_err; ?></span>
         </div>
 		
         <div class="form-group <?php echo (!empty($city_err)) ? 'has-error' : ''; ?>">
             <label>City</label>
-            <input type="text" name="name"class="form-control" value="<?php echo $city; ?>">
+            <input type="text" name="city" class="form-control" value="<?php echo $city; ?>">
             <span class="help-block"><?php echo $city_err; ?></span>
         </div>
 		
 		<div class="form-group <?php echo (!empty($province_err)) ? 'has-error' : ''; ?>">
             <label>Province</label>
-            <input type="text" name="name"class="form-control" value="<?php echo $province; ?>">
+            <input type="text" name="province"class="form-control" value="<?php echo $province; ?>">
             <span class="help-block"><?php echo $province_err; ?></span>
         </div>
 		<div class="form-group <?php echo (!empty($postal_code_err)) ? 'has-error' : ''; ?>">
             <label>Postal Code</label>
-            <input type="text" name="name"class="form-control" value="<?php echo $postal_code; ?>">
+            <input type="text" name="postal_code"class="form-control" value="<?php echo $postal_code; ?>">
             <span class="help-block"><?php echo $postal_code_err; ?></span>
         </div>
 		
