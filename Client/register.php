@@ -52,7 +52,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else {
         $name = trim($_POST["name"]);
     }
-	/*
+	
 	// Validate name
     if(empty(trim($_POST["phone_number"]))){
         $phone_number_err = "Please enter a phone number.";
@@ -82,7 +82,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $postal_code_err = "Please enter a postal code.";
     } else {
         $postal_code = trim($_POST["postal_code"]);
-    }*/
+    }
 	
     // Validate password
     if(empty(trim($_POST['password']))){
@@ -138,7 +138,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $sql = "INSERT INTO Client(name,phone_number,email,city,province,postal_code,user_id) VALUES(?,?,?,?,?,?,?)";
                             if($stmt = mysqli_prepare($conn, $sql)){
                                 //echo "working2";
-                                mysqli_stmt_bind_param($stmt, "sssssss", $param1, $param2, $param3, $param4, $param5, $param6 ,$param7);
+                                mysqli_stmt_bind_param($stmt, "ssssssi", $param1, $param2, $param3, $param4, $param5, $param6 ,$param7);
                                 $param1 = $name;
 								$param2 = $phone_number;
 								$param3 = $email;
