@@ -135,10 +135,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         if(mysqli_num_rows($result) == 1){
                             $row =  mysqli_fetch_assoc($result);
                             $user_id = $row['id'];
-                            $sql = "INSERT INTO Client(name,phone_number,email,city,province,postal_code,user_id) VALUES(?,?,?,?,?,?,?,)";
+                            $sql = "INSERT INTO Client(name,phone_number,email,city,province,postal_code,user_id) VALUES(?,?,?,?,?,?,?)";
                             if($stmt = mysqli_prepare($conn, $sql)){
                                 //echo "working2";
-                                mysqli_stmt_bind_param($stmt, "sisssss", $param1, $param2, $param3, $param4, $param5, $param6 ,$param7);
+                                mysqli_stmt_bind_param($stmt, "sssssss", $param1, $param2, $param3, $param4, $param5, $param6 ,$param7);
                                 $param1 = $name;
 								$param2 = $phone_number;
 								$param3 = $email;
