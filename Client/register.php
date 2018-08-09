@@ -44,40 +44,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Close statement
         mysqli_stmt_close($stmt);
     }
-	// Validate name
-    if(empty(trim($_POST["name"]))){
-        $username_err = "Please enter a name.";
-    } else{
-        // Prepare a select statement
 
-        $sql = "SELECT id FROM client WHERE name = ?";
-
-        if($stmt = mysqli_prepare($conn, $sql)) {
-            //echo "working 0";
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_name);
-
-            // Set parameters
-            $param_username = trim($_POST["username"]);
-
-            // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                /* store result */
-                mysqli_stmt_store_result($stmt);
-
-                if(mysqli_stmt_num_rows($stmt) == 1){
-                    $username_err = "This name is already there.";
-                } else{
-                    $username = trim($_POST["name"]);
-                }
-            } else{
-                echo "Oops! Something went wrong. Please try again later.";
-            }
-        }
-
-        // Close statement
-        mysqli_stmt_close($stmt);
-    }
 
     // Validate name
     if(empty(trim($_POST["name"]))){
@@ -85,6 +52,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else {
         $name = trim($_POST["name"]);
     }
+	/*
 	// Validate name
     if(empty(trim($_POST["phone_number"]))){
         $phone_number_err = "Please enter a phone number.";
@@ -114,7 +82,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $postal_code_err = "Please enter a postal code.";
     } else {
         $postal_code = trim($_POST["postal_code"]);
-    }
+    }*/
 	
     // Validate password
     if(empty(trim($_POST['password']))){
@@ -167,7 +135,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         if(mysqli_num_rows($result) == 1){
                             $row =  mysqli_fetch_assoc($result);
                             $user_id = $row['id'];
-                            $sql = "INSERT INTO Client(name,phone_number,email,city,province,postal_code,user_id) VALUES(?,?,?,?,?,?,?)";
+                            $sql = "INSERT INTO Client(name,phone_number,email,city,province,postal_code,user_id) VALUES(?,?,?,?,?,?,?,)";
                             if($stmt = mysqli_prepare($conn, $sql)){
                                 //echo "working2";
                                 mysqli_stmt_bind_param($stmt, "sisssss", $param1, $param2, $param3, $param4, $param5, $param6 ,$param7);
