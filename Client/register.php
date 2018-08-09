@@ -4,8 +4,8 @@ session_start();
 require_once '../config.php';
 
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = "";
-$username_err = $password_err = $confirm_password_err = "";
+$username = $name=$email=$phone_number=$postal_code=$province=$city=$password = $confirm_password = "";
+$username_err =$name_err=$email_err=$phone_number_err=$postal_code_err=$province_err=$city_err=$password_err = $confirm_password_err = "";
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -53,7 +53,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 	// Validate name
     if(empty(trim($_POST["phone_number"]))){
-        $phone_number = "Please enter a phone number.";
+        $phone_number_err = "Please enter a phone number.";
     } else {
         $phone_number = trim($_POST["phone_number"]);
     }
@@ -104,10 +104,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check input errors before inserting in database
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
         echo "no errors";
-        $type=3;
+        $type=5;
         // Prepare an insert statement
         $sql = "INSERT INTO Account (username, password, account_type) 
-		VALUES (?, ?, 3)";
+		VALUES (?, ?, 5)";
 
         if($stmt = mysqli_prepare($conn, $sql)){
            echo "working1";
