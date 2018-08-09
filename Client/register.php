@@ -173,11 +173,61 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up</title>
+    <title>Sign Up Form</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <style type="text/css">
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 450; padding: 20px; margin auto;}
+        body{ font: 14px sans-serif; text-align: center; }
+ul {
+  background-color: #000000;
+}
+li a:hover {
+  background-color: #0cf72a;
+}
+.word-container {
+  width: 500px;
+  height: 50px;
+  margin: 0 auto;
+}
+.word-container h1 {
+  margin: 0;
+  text-align: center;
+  color: #ab0a0a;
+}
+.register-container {
+  width: 450px;
+  margin: 0 auto;
+  border: 1px solid #000;
+ 
+}
+label {
+  display: block;
+}
+.name::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.name label:first-child {
+	margin-right: auto;
+}
+.name label {
+	width: calc(100% / 2 - 10px);
+	float: left;
+}
+input, [type="submit"] {
+ 
+  margin-bottom:  auto;
+  width: 100%;
+}
+[type="submit"] {
+  border: 1px solid #000000;
+  color: #ffffff;
+  background-color: #ab0a0a;
+  margin: 0;
+}
+[type="submit"]:hover {
+  background-color: red;
+}
     </style>
 </head>
 <body>
