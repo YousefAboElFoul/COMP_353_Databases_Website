@@ -44,6 +44,40 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Close statement
         mysqli_stmt_close($stmt);
     }
+	// Validate name
+    if(empty(trim($_POST["name"]))){
+        $username_err = "Please enter a name.";
+    } else{
+        // Prepare a select statement
+
+        $sql = "SELECT id FROM client WHERE name = ?";
+
+        if($stmt = mysqli_prepare($conn, $sql)) {
+            //echo "working 0";
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_name);
+
+            // Set parameters
+            $param_username = trim($_POST["username"]);
+
+            // Attempt to execute the prepared statement
+            if(mysqli_stmt_execute($stmt)){
+                /* store result */
+                mysqli_stmt_store_result($stmt);
+
+                if(mysqli_stmt_num_rows($stmt) == 1){
+                    $username_err = "This name is already there.";
+                } else{
+                    $username = trim($_POST["name"]);
+                }
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+        }
+
+        // Close statement
+        mysqli_stmt_close($stmt);
+    }
 
     // Validate name
     if(empty(trim($_POST["name"]))){
@@ -175,7 +209,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <style type="text/css">
         body{ font: 14px sans-serif; }
-        .wrapper{ width: 350px; padding: 20px; }
+        .wrapper{ width: 450; padding: 20px; margin auto;}
     </style>
 </head>
 <body>
@@ -195,30 +229,30 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <span class="help-block"><?php echo $name_err; ?></span>
         </div>
 		
-        <div class="form-group <?php echo (!empty($name_err)) ? 'has-error' : ''; ?>">
+        <div class="form-group <?php echo (!empty($phone_number_err)) ? 'has-error' : ''; ?>">
             <label>Phone-Number</label>
             <input type="text" name="name"class="form-control" value="<?php echo $phone_number; ?>">
             <span class="help-block"><?php echo $phone_number_err; ?></span>
         </div>
 		
-        <div class="form-group <?php echo (!empty($name_err)) ? 'has-error' : ''; ?>">
+        <div class="form-group <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
             <label>email</label>
             <input type="text" name="name"class="form-control" value="<?php echo $email; ?>">
             <span class="help-block"><?php echo $email_err; ?></span>
         </div>
 		
-        <div class="form-group <?php echo (!empty($name_err)) ? 'has-error' : ''; ?>">
+        <div class="form-group <?php echo (!empty($city_err)) ? 'has-error' : ''; ?>">
             <label>City</label>
             <input type="text" name="name"class="form-control" value="<?php echo $city; ?>">
             <span class="help-block"><?php echo $city_err; ?></span>
         </div>
 		
-		<div class="form-group <?php echo (!empty($name_err)) ? 'has-error' : ''; ?>">
+		<div class="form-group <?php echo (!empty($province_err)) ? 'has-error' : ''; ?>">
             <label>Province</label>
             <input type="text" name="name"class="form-control" value="<?php echo $province; ?>">
             <span class="help-block"><?php echo $province_err; ?></span>
         </div>
-		<div class="form-group <?php echo (!empty($name_err)) ? 'has-error' : ''; ?>">
+		<div class="form-group <?php echo (!empty($postal_code_err)) ? 'has-error' : ''; ?>">
             <label>Postal Code</label>
             <input type="text" name="name"class="form-control" value="<?php echo $postal_code; ?>">
             <span class="help-block"><?php echo $postal_code_err; ?></span>
