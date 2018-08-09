@@ -209,19 +209,77 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <span class="help-block"><?php echo $email_err; ?></span>
         </div>
 		
-        <div class="form-group <?php echo (!empty($city_err)) ? 'has-error' : ''; ?>">
-            <label>City</label>
-            <input type="text" name="city" class="form-control" value="<?php echo $city; ?>">
-            <span class="help-block"><?php echo $city_err; ?></span>
-        </div>
-		
-		<div class="form-group <?php echo (!empty($province_err)) ? 'has-error' : ''; ?>">
-            <label>Province</label>
-            <input type="text" name="province"class="form-control" value="<?php echo $province; ?>">
-            <span class="help-block"><?php echo $province_err; ?></span>
-        </div>
-		<div class="form-group <?php echo (!empty($postal_code_err)) ? 'has-error' : ''; ?>">
-            <label>Postal Code</label>
+        <div class="form-group "<?php echo (!empty($province_err)) ? 'has-error' : ''; ?>">
+				<label>Province</label>
+            <select name="province" id="province">
+			<option value="">Select Province</option>
+	        <option value="AB">Alberta</option>
+	        <option value="BC">British Columbia</option>
+	        <option value="MB">Manitoba</option>
+	        <option value="NB">New Brunswick</option>
+	        <option value="ON">Ontario</option>
+	        <option value="QC">Quebec</option>
+        	<option value="SK">Saskatchewan</option>
+            </select>
+			<span class="help-block"><?php echo $province_err; ?></span>
+            </div>
+			
+			<div class="form-group "<?php echo (!empty($city_err)) ? 'has-error' : ''; ?>">
+				<label>City</label>		
+			<select disabled="disabled" class="subcat" id="city" name="city">
+        <option value>Select city</option>
+        <!-- Alberta -->
+        <optgroup data-rel="AB">
+          <option value="Calgary">Calgary</option>
+          <option value="Edmonton">Edmonton</option>
+          <option value="Lethbridge">Lethbridge</option>
+          <option value="Red Deer">Red Deer</option>
+          <option value="St. Albert">St. Albert</option>
+        </optgroup>
+        <!-- British Columbia -->
+        <optgroup data-rel="BC">
+          <option value="Abbotsford">Abbotsford</option>
+          <option value="Burnaby">Burnaby</option>
+          <option value="Richmond">Richmond</option>
+          <option value="Surrey">Surrey</option>
+          <option value="Vancouver">Vancouver</option>
+        </optgroup>
+        <!-- Manitoba -->
+        <optgroup data-rel="MB">
+          <option value="Brandon">Brandon</option>
+          <option value="Portage la Prairie">Portage la Prairie</option>
+          <option value="Steinbach">Steinbach</option>
+          <option value="Thompson">Thompson</option>
+          <option value="Winnipeg">Winnipeg</option>
+        </optgroup>
+		 <!-- New Brunswick -->
+        <optgroup data-rel="NB">
+          <option value="Dieppe">Dieppe</option>
+          <option value="Fredericton">Fredericton</option>
+          <option value="Miramichi">Miramichi</option>
+          <option value="Moncton">Moncton</option>
+          <option value="Saint John">Saint John</option>
+        </optgroup>
+        <!-- Ontario -->
+        <optgroup data-rel="ON">
+          <option value="Brampton">Brampton</option>
+          <option value="Hamilton">Hamilton</option>
+          <option value="Mississauga">Mississauga</option>
+          <option value="Ottawa">Ottawa</option>
+          <option value="Toronto">Toronto</option>
+        </optgroup>
+		 <!-- Quebec -->
+        <optgroup data-rel="QC">
+          <option value="Gatineau">Gatineau</option>
+          <option value="Laval">Laval</option>
+          <option value="Longueuil">Longueuil</option>
+          <option value="Québec">Québec</option>
+          <option value="Montreal">Montreal</option>
+        </optgroup>
+      </select>
+
+			<span class="help-block"><?php echo $city_err; ?></span>
+            </div>
             <input type="text" name="postal_code"class="form-control" value="<?php echo $postal_code; ?>">
             <span class="help-block"><?php echo $postal_code_err; ?></span>
         </div>
@@ -246,3 +304,43 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </div>
 </body>
 </html>
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script>
+ $(function() {
+
+  var $cat = $("#province"),
+    $subcat = $(".subcat");
+
+  var optgroups = {};
+
+  $subcat.each(function(i, v) {
+    var $e = $(v);
+    var _id = $e.attr("id");
+    optgroups[_id] = {};
+    $e.find("optgroup").each(function() {
+      var _r = $(this).data("rel");
+      $(this).find("option").addClass("is-dyn");
+      optgroups[_id][_r] = $(this).html();
+    });
+  });
+  $subcat.find("optgroup").remove();
+
+  var _lastRel;
+  $cat.on("change", function() {
+    var _rel = $(this).val();
+    if (_lastRel === _rel) return true;
+    _lastRel = _rel;
+    $subcat.find("option").attr("style", "");
+    $subcat.val("");
+    $subcat.find(".is-dyn").remove();
+    if (!_rel) return $subcat.prop("disabled", true);
+    $subcat.each(function() {
+      var $el = $(this);
+      var _id = $el.attr("id");
+      $el.append(optgroups[_id][_rel]);
+    });
+    $subcat.prop("disabled", false);
+  });
+
+});
+</script>
