@@ -15,6 +15,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $username_err = "Please enter a username.";
     } else{
         // Prepare a select statement
+        $username = trim($_POST["username"];
         $sql = "SELECT id FROM Account WHERE username = ?";
 
         if($stmt = mysqli_prepare($conn, $sql)){
@@ -23,7 +24,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             mysqli_stmt_bind_param($stmt, "s", $param_username);
 
             // Set parameters
-            $param_username = trim($_POST["username"]);
+            $param_username = $username;
 
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -31,11 +32,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 /* store result */
                 mysqli_stmt_store_result($stmt);
 
-                if(mysqli_stmt_num_rows($stmt) == 1){
+                if(mysqli_stmt_num_rows($stmt) > 0){
                     $username_err = "This username is already taken.";
-                } else{
+                }
+                else{
                     $username = trim($_POST["username"]);
-                    echo $username;
+                    echo "top username: ". $username;
                 }
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
@@ -47,10 +49,34 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     // Validate city
     if(empty(trim($_POST['city']))){
-        $city_err = "Please enter a province.";
+        $city_err = "Please enter a city.";
     } else {
         $city = trim($_POST['city']);
         echo $city;
+    }
+
+    // Validate email
+    if(empty(trim($_POST['email']))){
+        $email_err = "Please enter an email.";
+    } else {
+        $email = trim($_POST['email']);
+        echo $email;
+    }
+
+    // Validate name
+    if(empty(trim($_POST['name']))){
+        $name_err = "Please enter a name.";
+    } else {
+        $name= trim($_POST['name']);
+        echo $name;
+    }
+
+    // Validate phonenumber
+    if(empty(trim($_POST['phonenumber']))){
+        $phonenumber_err= "Please enter a phone number.";
+    } else {
+        $phonenumber = trim($_POST['phonenumber']);
+        echo "phone number: " . $phonenumber . " " ;
     }
 
     if(empty(trim($_POST['province']))){
@@ -83,6 +109,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if(empty(trim($_POST["postalcode"]))){
         $postalcode_err = 'Enter a postal code.';
+    } elseif(strlen(trim($_POST['password'])) < 8) {
+        $postalcode_err = "Postal code must have less than 8 characters.";
     } else{
         $postalcode = trim($_POST['postalcode']);
     }
@@ -91,7 +119,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
         echo "11";
         // Prepare an insert statement
-        $sql = "INSERT INTO Account (username, password) VALUES (?, ?)";
+        $sql = "INSERT INTO Account (username, password, account_type) VALUES (?, ?, 5)";
 
         if($stmt = mysqli_prepare($conn, $sql)){
             echo '22';
@@ -109,7 +137,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $sql_ = "SELECT id FROM Account WHERE username = ?";
                 if($stmt_ = mysqli_prepare($conn, $sql_)){
                     echo 'working';
-                    mysqli_stmt_bind_param($stmt_, "i", $param_1);
+                    mysqli_stmt_bind_param($stmt_, "s", $param_1);
                     $param_1 = $username;
                     if(mysqli_stmt_execute($stmt_)){
                         echo 'working1';
@@ -143,11 +171,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     $param_postal_code = $postalcode;
                     $param_user_id = $user_id;
 
+                    echo "name ". $param_name . ' ';
+                    echo "p_number " . $param_phonenumber. ' ';
+                    echo "email " . $param_email . ' ';
+                    echo $param_city . ' ';
+                    echo $param_province . ' ';
+                    echo $param_postal_code . ' ';
+                    echo $param_user_id . ' ';
+
                     // Attempt to execute the prepared statement
                     if(mysqli_stmt_execute($stmt2)){
                         echo '$stmt2 executed';
                         // Redirect to login page
-                        header("location: " . $base_url . "SalesAssociate/welcome.php");
+                        //header("location: " . $base_url . "SalesAssociate/welcome.php");
                     } else{
                         echo "Something went wrong. Please try again later.";
                     }
