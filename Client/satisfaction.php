@@ -34,7 +34,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 		 <p>Go back <a href="welcome.php">Click here</a>.</p>
     </form>
 <?php
-require_once 'config.php';
+require_once '../config.php'; 
 if($_POST['Satisfaction_num']>0 and $_POST['Satisfaction_num']<10 )
 	{
 		$UserInput = $_POST['Satisfaction_num'];

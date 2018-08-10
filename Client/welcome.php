@@ -35,7 +35,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                 <?php
              //   echo "1: TEST  HERE";
 			  
-              			  require_once 'config.php';
+              			  require_once '../config.php'; 
 							$client_id=0;
                 $sql = "SELECT id FROM account WHERE username=?";
                 if($stmt = mysqli_prepare($conn, $sql)){
