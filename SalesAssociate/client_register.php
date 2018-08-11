@@ -1,102 +1,86 @@
 <?php
 // Include config file
+session_start();
 require_once '../config.php';
-
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = $name = $phonenumber = $email = $postalcode = $province = $city = "";
-$username_err = $password_err = $confirm_password_err = $name_err = $phonenumber_err = $email_err = $postalcode_err = $province_err = $city_err = "";
-
+$username = $name=$email=$phone_number=$postal_code=$province=$city=$password = $confirm_password = "";
+$username_err =$name_err=$email_err=$phone_number_err=$postal_code_err=$province_err=$city_err=$password_err = $confirm_password_err = "";
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    echo "something";
-
     // Validate username
     if(empty(trim($_POST["username"]))){
         $username_err = "Please enter a username.";
     } else{
         // Prepare a select statement
-        $username = trim($_POST["username"];
         $sql = "SELECT id FROM Account WHERE username = ?";
-
-        if($stmt = mysqli_prepare($conn, $sql)){
-            echo "hi";
+        if($stmt = mysqli_prepare($conn, $sql)) {
+            //echo "working 0";
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "s", $param_username);
-
             // Set parameters
-            $param_username = $username;
-
+            $param_username = trim($_POST["username"]);
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
-                echo 'hello';
                 /* store result */
                 mysqli_stmt_store_result($stmt);
-
-                if(mysqli_stmt_num_rows($stmt) > 0){
+                if(mysqli_stmt_num_rows($stmt) == 1){
                     $username_err = "This username is already taken.";
-                }
-                else{
+                } else{
                     $username = trim($_POST["username"]);
-                    echo "top username: ". $username;
                 }
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
         }
-
         // Close statement
         mysqli_stmt_close($stmt);
     }
-    // Validate city
-    if(empty(trim($_POST['city']))){
-        $city_err = "Please enter a city.";
+    // Validate name
+    if(empty(trim($_POST["name"]))){
+        $name_err = "Please enter a username.";
     } else {
-        $city = trim($_POST['city']);
-        echo $city;
+        $name = trim($_POST["name"]);
     }
 
-    // Validate email
-    if(empty(trim($_POST['email']))){
+    // Validate phone
+    if(empty(trim($_POST["phone_number"]))){
+        $phone_number_err = "Please enter a phone number.";
+    } else {
+        $phone_number = trim($_POST["phone_number"]);
+    }
+    //Validate email
+    if(empty(trim($_POST["email"]))){
         $email_err = "Please enter an email.";
     } else {
-        $email = trim($_POST['email']);
-        echo $email;
+        $email = trim($_POST["email"]);
     }
-
-    // Validate name
-    if(empty(trim($_POST['name']))){
-        $name_err = "Please enter a name.";
+    //Vladiate City
+    if(empty(trim($_POST["city"]))){
+        $city_err = "Please choose a city.";
     } else {
-        $name= trim($_POST['name']);
-        echo $name;
+        $city = trim($_POST["city"]);
     }
-
-    // Validate phonenumber
-    if(empty(trim($_POST['phonenumber']))){
-        $phonenumber_err= "Please enter a phone number.";
+    //Vladiate Province
+    if(empty(trim($_POST["province"]))){
+        $province_err = "Please choose a province.";
     } else {
-        $phonenumber = trim($_POST['phonenumber']);
-        echo "phone number: " . $phonenumber . " " ;
+        $province = trim($_POST["province"]);
     }
-
-    if(empty(trim($_POST['province']))){
-        $province_err = "Please enter a province.";
-    } else {
-        $province = trim($_POST['province']);
-        echo $province;
+    //Vladiate Postal_code
+    if(empty(trim($_POST["postal_code"]))){
+        $postal_code_err = "Please enter a postal code.";
+    } else {                                           // todo:NEED ELSE IF HER FOR <= 7 CHARS
+        $postal_code = trim($_POST["postal_code"]);
     }
-
-
 
     // Validate password
     if(empty(trim($_POST['password']))){
         $password_err = "Please enter a password.";
     } elseif(strlen(trim($_POST['password'])) < 6){
-        $password_err = "Password must have at least 6 characters.";
+        $password_err = "Password must have atleast 6 characters.";
     } else{
         $password = trim($_POST['password']);
     }
-
     // Validate confirm password
     if(empty(trim($_POST["confirm_password"]))){
         $confirm_password_err = 'Please confirm password.';
@@ -106,133 +90,156 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $confirm_password_err = 'Password did not match.';
         }
     }
-
-    if(empty(trim($_POST["postalcode"]))){
-        $postalcode_err = 'Enter a postal code.';
-    } elseif(strlen(trim($_POST['password'])) < 8) {
-        $postalcode_err = "Postal code must have less than 8 characters.";
-    } else{
-        $postalcode = trim($_POST['postalcode']);
-    }
-
     // Check input errors before inserting in database
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
-        echo "11";
+        echo "no errors";
+        $type=5;
         // Prepare an insert statement
-        $sql = "INSERT INTO Account (username, password, account_type) VALUES (?, ?, 5)";
-
+        $sql = "INSERT INTO Account (username, password, account_type) 
+		VALUES (?, ?, 5)";
         if($stmt = mysqli_prepare($conn, $sql)){
-            echo '22';
+            echo "working1";
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
-
-            // Set parameters
+            // Set paramesters
             $param_username = $username;
             //$param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
             $param_password = $password;
+            // $param3 = 3;
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
-                echo 'insert executed';
-                /// get the user_id as Account.id
-                $sql_ = "SELECT id FROM Account WHERE username = ?";
-                if($stmt_ = mysqli_prepare($conn, $sql_)){
-                    echo 'working';
-                    mysqli_stmt_bind_param($stmt_, "s", $param_1);
-                    $param_1 = $username;
-                    if(mysqli_stmt_execute($stmt_)){
-                        echo 'working1';
-                        $result_ = mysqli_stmt_get_result($stmt_);
-                        // Check if username exists, if yes then verify password
-                        if(mysqli_num_rows($result_) > 0) {
-                            echo 'working2';
-                            $first_row =  mysqli_fetch_assoc($result_);
-                            $user_id = $first_row['id'];
+                echo "working V";
+                $sql = "SELECT * FROM Account WHERE username = ?";
+                if($stmt = mysqli_prepare($conn, $sql)) {
+                    mysqli_stmt_bind_param($stmt, "s", $param1);
+                    $param1 = $username;
+                    if(mysqli_stmt_execute($stmt)) {
+                        //echo "Working z";
+                        $result = mysqli_stmt_get_result($stmt);
+                        if(mysqli_num_rows($result) == 1){
+                            $row =  mysqli_fetch_assoc($result);
+                            $user_id = $row['id'];
+                            $sql = "INSERT INTO Client(name,phone_number,email,city,province,postal_code,user_id) VALUES(?,?,?,?,?,?,?)";
+                            if($stmt = mysqli_prepare($conn, $sql)){
+                                //echo "working2";
+                                mysqli_stmt_bind_param($stmt, "ssssssi", $param1, $param2, $param3, $param4, $param5, $param6 ,$param7);
+                                $param1 = $name;
+                                $param2 = $phone_number;
+                                $param3 = $email;
+                                $param4 = $city;
+                                $param5 = $province;
+                                $param6 = $postal_code;
+                                $param7 = $user_id;
 
+                                if(mysqli_stmt_execute($stmt)){
+                                    header("location: ". $base_url . "/SalesAssociate/welcome.php");
+                                }
+                            }
                         }
-
-                    }
-
-                }
-                ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                $sql2 = "INSERT INTO Client (name, phone_number, email, city, province, postal_code, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-                if($stmt2 = mysqli_prepare($conn, $sql2)){
-                    echo 'prepared for stmt2';
-
-                    // Bind variables to the prepared statement as parameters
-                    mysqli_stmt_bind_param($stmt2, "ssssssi", $param_name, $param_phonenumber, $param_email, $param_city, $param_province, $param_postal_code, $param_user_id);
-                    echo 'params bound for stmt2';
-                    // Set parameters
-                    $param_name = $name;
-                    $param_phonenumber = $phonenumber;
-                    $param_email = $email;
-                    $param_city = $city;
-                    $param_province = $province;
-                    $param_postal_code = $postalcode;
-                    $param_user_id = $user_id;
-
-                    echo "name ". $param_name . ' ';
-                    echo "p_number " . $param_phonenumber. ' ';
-                    echo "email " . $param_email . ' ';
-                    echo $param_city . ' ';
-                    echo $param_province . ' ';
-                    echo $param_postal_code . ' ';
-                    echo $param_user_id . ' ';
-
-                    // Attempt to execute the prepared statement
-                    if(mysqli_stmt_execute($stmt2)){
-                        echo '$stmt2 executed';
-                        // Redirect to login page
-                        //header("location: " . $base_url . "SalesAssociate/welcome.php");
-                    } else{
-                        echo "Something went wrong. Please try again later.";
                     }
                 }
             }
+        } else{
+            echo "Something went wrong. Please try again later.";
         }
-
-        // Close statement
-        mysqli_stmt_close($stmt);
-    } else {
-        echo 'there was some error';
     }
-
-    // Close connection
-    mysqli_close($conn);
+    // Close statement
+    mysqli_stmt_close($stmt);
 }
+// Close connection
+mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up</title>
+    <title>Sign Up Form</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <style type="text/css">
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 350px; padding: 20px; }
+        body{ font: 14px sans-serif; text-align: center; }
+        ul {
+            background-color: #000000;
+        }
+        li a:hover {
+            background-color: #0cf72a;
+        }
+        .word-container {
+            width: 500px;
+            height: 50px;
+            margin: 0 auto;
+        }
+        .word-container h1 {
+            margin: 0;
+            text-align: center;
+            color: #ab0a0a;
+        }
+        .register-container {
+            width: 450px;
+            margin: 0 auto;
+            border: 1px solid #000;
+
+        }
+        label {
+            display: block;
+        }
+        .name::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        .name label:first-child {
+            margin-right: auto;
+        }
+        .name label {
+            width: calc(100% / 2 - 10px);
+            float: left;
+        }
+        input, [type="submit"] {
+
+            margin-bottom:  auto;
+            width: 100%;
+        }
+        [type="submit"] {
+            border: 1px solid #000000;
+            color: #ffffff;
+            background-color: #ab0a0a;
+            margin: 0;
+        }
+        [type="submit"]:hover {
+            background-color: red;
+        }
     </style>
 </head>
 <body>
 <div class="wrapper">
-    <h2>Create Client Account</h2>
-    <p>Please fill this form to create an account.</p>
+    <h2>Sign Up</h2>
+    <p>Please fill this form to create an account for a Client.</p>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+            <label>Username</label>
+            <input type="text" name="username"class="form-control" value="<?php echo $username; ?>">
+            <span class="help-block"><?php echo $username_err; ?></span>
+        </div>
+
         <div class="form-group <?php echo (!empty($name_err)) ? 'has-error' : ''; ?>">
             <label>Name</label>
             <input type="text" name="name"class="form-control" value="<?php echo $name; ?>">
             <span class="help-block"><?php echo $name_err; ?></span>
         </div>
-        <div class="form-group <?php echo (!empty($phonenumber_err)) ? 'has-error' : ''; ?>">
-            <label>Phone Number</label>
-            <input type="text" name="phonenumber"class="form-control" value="<?php echo $phonenumber; ?>">
-            <span class="help-block"><?php echo $phonenumber_err; ?></span>
+
+        <div class="form-group <?php echo (!empty($phone_number_err)) ? 'has-error' : ''; ?>">
+            <label>Phone-Number</label>
+            <input type="number" name="phone_number"class="form-control" value="<?php echo $phone_number; ?>">
+            <span class="help-block"><?php echo $phone_number_err; ?></span>
         </div>
+
         <div class="form-group <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
-            <label>Email</label>
+            <label>email</label>
             <input type="text" name="email"class="form-control" value="<?php echo $email; ?>">
             <span class="help-block"><?php echo $email_err; ?></span>
         </div>
+
         <div class="form-group "<?php echo (!empty($province_err)) ? 'has-error' : ''; ?>">
         <label>Province</label>
         <select name="province" id="province">
@@ -304,16 +311,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 <span class="help-block"><?php echo $city_err; ?></span>
 </div>
-<div class="form-group <?php echo (!empty($postalcode_err)) ? 'has-error' : ''; ?>">
+
+<div class="form-group <?php echo (!empty($postal_code_err)) ? 'has-error' : ''; ?>">
     <label>Postal Code</label>
-    <input type="text" name="postalcode"class="form-control" value="<?php echo $postalcode; ?>">
-    <span class="help-block"><?php echo $postalcode_err; ?></span>
+<input type="text" name="postal_code"class="form-control" value="<?php echo $postal_code; ?>">
+<span class="help-block"><?php echo $postal_code_err; ?></span>
 </div>
-<div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
-    <label>Username</label>
-    <input type="text" name="username"class="form-control" value="<?php echo $username; ?>">
-    <span class="help-block"><?php echo $username_err; ?></span>
-</div>
+
+
 <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
     <label>Password</label>
     <input type="password" name="password" class="form-control" value="<?php echo $password; ?>">
@@ -331,11 +336,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </form>
 </div>
 </body>
-
-
 </html>
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-<script >
+<script>
     $(function() {
         var $cat = $("#province"),
             $subcat = $(".subcat");
