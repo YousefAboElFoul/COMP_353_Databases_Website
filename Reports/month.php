@@ -11,6 +11,7 @@ if(!isset($_GET['id']) || empty($_GET['id'])){
 }
 
 $month_name = '';
+$contract_type = '';
 
 function getMonth($param){
     global $month_name;
@@ -54,6 +55,26 @@ function getMonth($param){
     }
 }
 
+function getContractType($param){
+    //$contract_type;
+    switch ($param) {
+        case "1":
+            $contract_type = 'Premium';
+            break;
+        case "2":
+            $contract_type = 'Diamond';
+            break;
+        case "3":
+            $contract_type = "Gold";
+            break;
+        case "4":
+            $contract_type = "Silver";
+            break;
+    }
+    return $contract_type;
+}
+
+//echo getContractType(1);
 getMonth($month);
 //echo "month ". $month_name;
 
@@ -84,14 +105,18 @@ getMonth($month);
                 <table class='table table-bordered table-striped'>
                     <thead>
                     <tr>
+                        <th>Client ID</th>
+                        <th>ACV</th>
+                        <th>Initial Deposit</th>
                         <th>Start Date</th>
                         <th>First Deliverable</th>
+                        <th>Contract Type</th>
 
                         </tr>
                     </thead>
                     <tbody>
                     <?php
-                    $sql = "  SELECT DATE(start_date) AS start, first_deliverable  
+                    $sql = "  SELECT client_id, acv, initial_amount, contract_type, DATE(start_date) AS start, first_deliverable  
                               FROM Contract WHERE MONTH(first_deliverable) = ? AND YEAR(start_date) = 2017";
                     if($stmt = mysqli_prepare($conn, $sql)) {
                         mysqli_stmt_bind_param($stmt, "i", $param1);
@@ -101,8 +126,13 @@ getMonth($month);
                             if(mysqli_num_rows($result) > 0){
                                 while($row = mysqli_fetch_array($result)){
                                     echo "<tr>";
+                                    echo "<td>" . $row['client_id'] . "</td>";
+                                    echo "<td>" . $row['acv'] . "</td>";
+                                    echo "<td>" . $row['initial_amount'] . "</td>";
                                     echo "<td>" . $row['start'] . "</td>";
                                     echo "<td>" . $row['first_deliverable'] . "</td>";
+                                    echo "<td>" . getContractType($row['contract_type']) . "</td>";
+
                                     echo "</tr>";
                                 }
                             }

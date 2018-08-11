@@ -263,10 +263,10 @@ CREATE TABLE IF NOT EXISTS Contract (
     service_type INT UNSIGNED,
     contract_type INT UNSIGNED,
     sales_associate INT UNSIGNED,
-	first_deliverable DATE,
-	second_deliverable DATE,
-	third_deliverable DATE,
-	final_deliverable DATE,
+    first_deliverable DATE,
+    second_deliverable DATE,
+    third_deliverable DATE,
+		final_deliverable DATE,
 	line_business  INT UNSIGNED,
 	client_satisfaction INT DEFAULT NULL,
 	CONSTRAINT satisfaction_chk CHECK (client_satisfaction BETWEEN 1 AND 10),
@@ -556,7 +556,52 @@ INSERT INTO Contract(client_id,
 
 # contract type is 1 for this 1st contract therefore we need an employee whos preferred
 # contract type is 1 therefor Max Patches the third employee created --> employee_id = 3
-INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 3, 40);
-INSERT INTO Contract_Manager(contract_id, manager_id) VALUES(1, 1);
+INSERT INTO Contract_Manager(contract_id, manager_id) VALUES(1,1);
+INSERT INTO Contract_Manager(contract_id, manager_id) VALUES(2,1);
+INSERT INTO Contract_Manager(contract_id, manager_id) VALUES(3,2);
+INSERT INTO Contract_Manager(contract_id, manager_id) VALUES(4,2);
+INSERT INTO Contract_Manager(contract_id, manager_id) VALUES(5,3);
+INSERT INTO Contract_Manager(contract_id, manager_id) VALUES(6,3);
+INSERT INTO Contract_Manager(contract_id, manager_id) VALUES(7,4);
+INSERT INTO Contract_Manager(contract_id, manager_id) VALUES(8,4);
+INSERT INTO Contract_Manager(contract_id, manager_id) VALUES(9,5);
+INSERT INTO Contract_Manager(contract_id, manager_id) VALUES(10,5);
+
+
+#platinum contract workers
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 4, 40);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 8, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(6, 4, 70);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(6, 8, 69);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(10, 4, 83);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(10, 8, 25);
+
+#diamond contract workers
+
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(2, 3, 110);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(2, 7, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(7, 3, 50);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(7, 7, 80);
+
+#gold contract workers
+
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(3, 2, 110);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(3, 6, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(3, 10, 50);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(8, 2, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(8, 6, 110);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(8, 10, 80);
+
+
+#silver contract workers
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(4, 1, 55);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(4, 5, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(4, 9, 50);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(5, 1, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(5, 5, 55);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(5, 9, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(9, 1, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(9, 5, 55);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(9, 9, 80);
 
 
