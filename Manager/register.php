@@ -72,14 +72,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     // Check input errors before inserting in database
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
-        echo "no errors";
+       // echo "no errors";
         $type=3;
         // Prepare an insert statement
         $sql = "INSERT INTO Account (username, password, account_type) 
 		VALUES (?, ?, 3)";
 
         if($stmt = mysqli_prepare($conn, $sql)){
-           echo "working1";
+        //   echo "working1";
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
 
@@ -91,7 +91,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
-                echo "working V";
+             //   echo "working V";
                 $sql = "SELECT * FROM Account WHERE username = ?";
                 if($stmt = mysqli_prepare($conn, $sql)) {
                     mysqli_stmt_bind_param($stmt, "s", $param1);
@@ -123,7 +123,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
 
         // Close statement
-        mysqli_stmt_close($stmt);
+        //mysqli_stmt_close($stmt);
     }
 
     // Close connection

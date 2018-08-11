@@ -3,13 +3,13 @@
 session_start();
 require_once "../config.php";
 
-
+$hours_worked = [10, 15, 20, 25, 30];
 
 // Processing form data when form is submitted
 if(isset($_GET["emp_id"]) && !empty($_GET["emp_id"])) {
 // Get hidden input value
     $employee_id = $_GET["emp_id"];
-    echo "Employee Id is: " . $employee_id;
+    //echo "Employee Id is: " . $employee_id;
 } else {
     echo "Can't get contract_id";
 }
@@ -18,10 +18,11 @@ if(isset($_GET["emp_id"]) && !empty($_GET["emp_id"])) {
 if(isset($_GET["contract_id"]) && !empty($_GET["contract_id"])) {
 // Get hidden input value
     $contract_id = $_GET["contract_id"];
-    echo "Contract Id is: " . $contract_id;
-} else {
-    echo "Can't get contract_id";
-}
+   //echo "Contract Id is: " . $contract_id;
+} 
+//else {
+  //  echo "Can't get contract_id";
+//}
 
 $sql = "SELECT * FROM Contract_Employee WHERE employee_id =? AND contract_id = ?";
 if($stmt = mysqli_prepare($conn, $sql)) {
@@ -51,11 +52,11 @@ if($stmt = mysqli_prepare($conn, $sql) ) {
 
     if (mysqli_stmt_execute($stmt)) {
         // Redirect to welcome page
-        echo "Employee added to contract";
+        //echo "Employee added to contract";
         header("location: " . $base_url . "Manager/welcome.php");
         exit;
     } else {
-        echo "Could not add Employee to contract";
+        //echo "Could not add Employee to contract";
     }
 }
 

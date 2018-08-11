@@ -9,7 +9,7 @@ if(!isset($_SESSION['employee_id']) || empty($_SESSION['employee_id'])){
     echo "Something went wrong";
 } else {
     $employee_id = $_SESSION['employee_id'];
-    echo "employee_id: " . $employee_id;
+   // echo "employee_id: " . $employee_id;
 }
 
 $uname = $_SESSION['username'];

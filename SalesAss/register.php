@@ -19,7 +19,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $sql = "SELECT id FROM Account WHERE username = ?";
 
         if($stmt = mysqli_prepare($conn, $sql)) {
-     //       echo "working 0";
+            //echo "working 0";
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "s", $param_username);
 
@@ -51,22 +51,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else {
         $name = trim($_POST["name"]);
     }
-
-//    // Validate plan_id
-//    if(empty(trim($_POST["plan_id"]))){
-//        $plan_id_err = "Please enter a username.";
-//    } else {
-//        $plan_id = trim($_POST["plan_id"]);
-//    }
-//
-//
-//    // Validate contract_type_id
-//    if(empty(trim($_POST["contract_type_id"]))){
-//        $contract_type_id = "Please enter a contract type id.";
-//    } else {
-//        $contract_type_id = trim($_POST["contract_type_id"]);
-//    }
-
     // Validate password
     if(empty(trim($_POST['password']))){
         $password_err = "Please enter a password.";
@@ -88,14 +72,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     // Check input errors before inserting in database
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
-        //echo "no errors";
-        //$type=4;
+       // echo "no errors";
+        $type=2;
         // Prepare an insert statement
         $sql = "INSERT INTO Account (username, password, account_type) 
-		VALUES (?, ?, 4)";
+		VALUES (?, ?, 2)";
 
         if($stmt = mysqli_prepare($conn, $sql)){
-            // echo "working1";
+        //   echo "working1";
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
 
@@ -103,11 +87,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_username = $username;
             //$param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
             $param_password = $password;
-            // $param3 = 3;
+           // $param3 = 3;
 
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
-                //echo "working V";
+             //   echo "working V";
                 $sql = "SELECT * FROM Account WHERE username = ?";
                 if($stmt = mysqli_prepare($conn, $sql)) {
                     mysqli_stmt_bind_param($stmt, "s", $param1);
@@ -118,7 +102,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         if(mysqli_num_rows($result) == 1){
                             $row =  mysqli_fetch_assoc($result);
                             $user_id = $row['id'];
-                            $sql = "INSERT INTO Employee(name, user_id) VALUES(?, ?)";
+                            $sql = "INSERT INTO SalesAssoicate(name, user_id) VALUES(?, ?)";
                             if($stmt = mysqli_prepare($conn, $sql)){
                                 //echo "working2";
                                 mysqli_stmt_bind_param($stmt, "ss", $param1, $param2);
@@ -133,17 +117,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
             }
 
-        } else{
-           echo "Something went wrong. Please try again later.";
+            } else{
+                echo "Something went wrong. Please try again later.";
+            }
         }
+
+        // Close statement
+        //mysqli_stmt_close($stmt);
     }
 
-    // Close statement
-  //  mysqli_stmt_close($stmt);
-}
-
-// Close connection
-mysqli_close($conn);
+    // Close connection
+    mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
@@ -174,19 +158,6 @@ mysqli_close($conn);
             <span class="help-block"><?php echo $name_err; ?></span>
         </div>
 
-<!--        <div class="form-group --><?php //echo (!empty($plan_id_err)) ? 'has-error' : ''; ?><!--">-->
-<!--            <label>Plan Id</label>-->
-<!--            <input type="text" name="plan_id"class="form-control" value="--><?php //echo $plan_id; ?><!--">-->
-<!--            <span class="help-block">--><?php //echo $plan_id_err; ?><!--</span>-->
-<!--        </div>-->
-<!---->
-<!---->
-<!--        <div class="form-group --><?php //echo (!empty($contract_type_id_err)) ? 'has-error' : ''; ?><!--">-->
-<!--            <label>Contract Type Id</label>-->
-<!--            <input type="text" name="$contract_type_id"class="form-control" value="--><?php //echo $contract_type_id; ?><!--">-->
-<!--            <span class="help-block">--><?php //echo $contract_type_id; ?><!--</span>-->
-<!--        </div>-->
-
         <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
             <label>Password</label>
             <input type="password" name="password" class="form-control" value="<?php echo $password; ?>">
@@ -201,7 +172,7 @@ mysqli_close($conn);
             <input type="submit" class="btn btn-primary" value="Submit">
             <input type="reset" class="btn btn-default" value="Reset">
         </div>
-        <p>Already have an account? <a href="login.php">Login here</a>.</p>
+        <p>Already have an account? <a href="../SalesAss/login.php">Login here</a>.</p>
     </form>
 </div>
 </body>

@@ -1,124 +1,113 @@
 <?php
-// Initialize the session
 session_start();
 require_once '../config.php';
 
-
 // If session variable is not set it will redirect to login page
-if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
-    header("location: login.php");
-    exit;
+//if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
+//    header("location: login.php");
+//    exit;
+//}
+
+//echo "post id: " . $_GET["id"];
+
+// Processing form data when form is submitted
+if(isset($_GET["contract_type_id"]) && !empty($_GET["contract_type_id"])) {
+// Get hidden input value
+    $contract_type_id = $_GET["contract_type_id"];
+    //echo "Id is: " . $contract_type_id;
+} else {
+    //echo "Can't get contract_type_id";
 }
 
-//if(isset($_SESSION['manager_id']) && !empty($_SESSION['manager_id'])) {
-//    $manager_id = $_SESSION['manager_id'];
-//    //echo "manager_id = ". $manager_id;
-//} else {
-//    echo "No manager id";
+// Processing form data when form is submitted
+if(isset($_GET["contract_id"]) && !empty($_GET["contract_id"])) {
+// Get hidden input value
+    $contract_id = $_GET["contract_id"];
+    //echo "Id is: " . $contract_type_id;
+} 
+//else {
+ //   echo "Can't get contract_id";
+  //  echo "type: " . gettype($_GET["contract_id"]);
 //}
-?>
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <title>Update Record</title>
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
     <style type="text/css">
-        body{ font: 14px sans-serif; text-align: center; }
+        .wrapper{
+            width: 500px;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
-<div class="page-header">
-    <h1>Hi, <b><?php echo htmlspecialchars($_SESSION['username']); ?></b>. Welcome to our site.</h1>
+<h3>Employees available to work on this contract</h3>
+<div>
+    <?php
+
+
+    // THIS TABLE IS MISSING VALUES
+    echo "<table class='table table-bordered table-striped'>";
+        echo "<thead>";
+        echo "<tr>";
+        echo "<th>Employee Id</th>";
+        echo "<th>Employee Name</th>";
+        echo "<th>Preferred Contract Type</th>";
+        echo "<th></th>";
+
+
+    echo "</tr>";
+        echo "</thead>";
+        echo "<tbody>";
+////////////////////////////
+            // Attempt select query execution
+    $sql = "SELECT Employee.id, Employee.name, Contract_type.name FROM Employee INNER JOIN
+            Contract_type ON Contract_type.id = Employee.contract_type WHERE Employee.contract_type=?";
+    //$sql = "SELECT * FROM company_worker";
+
+    if($stmt = mysqli_prepare($conn, $sql)) {
+        //echo "working prepared";
+        mysqli_stmt_bind_param($stmt, "i", $param1);
+        $param1 = $contract_type_id;
+        if(mysqli_stmt_execute($stmt)) {
+            //echo "working2";
+            $result = mysqli_stmt_get_result($stmt);
+            while($row = mysqli_fetch_array($result)){
+                //echo "working3";
+                //echo $row;
+
+
+                echo "<td>" . $row[0] . "</td>";
+                echo "<td>" . $row[1] . "</td>";
+                echo "<td>" . $row[2] . "</td>";
+                // echo "<td>" . $row['manager_id' ] . "</td>";
+                echo "<td>";
+                echo  "<p><a href=" . $base_url . "Manager/employee_added.php?emp_id=". $row['id'].
+                        "&contract_id=". $contract_id . " class='btn btn-success'>Add</a></p>";
+                echo "</td>";
+                echo "</tr>";
+            }
+        }
+    }
+
+    //echo "<a href='add_employee.php?contract_type_id=". $contract_type_id . "' class= btn btn-success pull-right>Add New Employee</a";
+    // Free result set
+   // mysqli_free_result($result);
+    ?>
 </div>
-
-<div class="wrapper">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="page-header clearfix">
-                    <h2 class="pull-left">All Gold Contracts</h2>
-
-                </div>
-                <?php
-
-                //$manager_id = 0;
-
-                $sql = "SELECT 
-                          Contract.id AS con_id, 
-                          Contract.client_id, 
-                          Contract.responsible_id , 
-                          Contract.acv , 
-                          Contract.initial_amount ,
-                          Contract.start_date ,
-                          Contract.service_type ,
-                          Contract.contract_type ,
-                          Contract.client_satisfaction,
-                          Contract_type.name AS con_type_name FROM Contract INNER JOIN Contract_type ON 
-                          Contract.contract_type = Contract_type.id
-                          WHERE Contract.contract_type = ?
-                        ";
-
-
-                if($stmt = mysqli_prepare($conn, $sql)) {
-                    mysqli_stmt_bind_param($stmt, "i", $param1);
-                    $param1 = 3;  // Gold is 3
-                    if(mysqli_stmt_execute($stmt)) {
-                        $result = mysqli_stmt_get_result($stmt);
-                        if(mysqli_num_rows($result) > 0){
-
-                            // THIS TABLE IS MISSING VALUES
-                            echo "<table class='table table-bordered table-striped'>";
-                            echo "<thead>";
-                            echo "<tr>";
-                            echo "<th>Contract Id</th>";
-                            echo "<th>Responsible ID</th>";
-                            echo "<th>ACV</th>";
-                            echo "<th>Initial Amount</th>";
-                            echo "<th>Contract Type</th>";
-
-                            echo "</tr>";
-                            echo "</thead>";
-                            echo "<tbody>";
-                            while($row = mysqli_fetch_array($result)){
-                                $contract_type = "error";
-                                $contract_query = "SELECT name FROM contract_type WHERE id = ". $row['contract_type_id'];
-                                if($contract_result = mysqli_query($conn, $contract_query)) {
-                                    $contract_type_rows = mysqli_fetch_array($contract_result);
-                                    //$contract_type_row_zero = $contract_type_rows[0];
-                                    $contract_type = $contract_type_rows['name'];
-                                }
-                                echo "<tr>";
-                                echo "<td>" . $row['con_id'] . "</td>";
-                                echo "<td>" . $row['responsible_id'] . "</td>";
-                                echo "<td>" . $row['acv'] . "</td>";
-                                echo "<td>" . $row['initial_amount'] . "</td>";
-
-                                echo "<td>". $row['con_type_name'] . "</td>";
-                                echo "</tr>";
-                            }
-                            echo "</tbody>";
-                            echo "</table>";
-                            // Free result set
-                            mysqli_free_result($result);
-
-                        }else{
-                            echo "<p class='lead'><em>No records were found.</em></p>";
-                        }
-                    } else {
-                        echo "Could not executd sql statement";
-                    }
-                }
-
-                // Close connection
-                mysqli_close($conn);
-                ?>
-            </div>
-        </div>
-    </div>
-</div>
-
-<p><a href=<?php echo $base_url . "Manager/logout.php" ?> class="btn btn-danger">Sign Out of Your Account</a></p>
 </body>
 </html>

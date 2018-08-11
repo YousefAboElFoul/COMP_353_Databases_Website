@@ -29,6 +29,9 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
     </style>
 </head>
 <body>
+<div class="page-header">
+    <h1>Hi, <b><?php echo htmlspecialchars($_SESSION['username']); ?></b>. Welcome to our site.</h1>
+</div>
 
 <div class="wrapper">
     <div class="container-fluid">

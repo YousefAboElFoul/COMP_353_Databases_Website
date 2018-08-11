@@ -42,7 +42,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     // Check input errors before inserting in database
     if(empty($acv_err) && empty($initial_amount_err) && empty($contract_type_err)){
         // Prepare an update statement
-        $sql = "UPDATE contract SET acv=?, initial_amount=?, contract_type=? WHERE id=?";
+        $sql = "UPDATE Contract SET acv=?, initial_amount=?, contract_type=? WHERE id=?";
          
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters

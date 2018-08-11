@@ -85,9 +85,9 @@ if( empty($_SESSION['employee_id'])){
                             if($insurance_result = mysqli_query($conn, $insurance_query)) {
                                 // echo "working3";
 
-                                $insurance_rows = mysqli_fetch_array($contract_result);
+                                $insurance_rows = mysqli_fetch_array($insurance_result);
                                 //$contract_type_row_zero = $contract_type_rows[0];
-                                $insurance_type = $contract_type_rows['name'];
+                                $insurance_type = $insurance_rows['name'];
 
                             }
                             if($_SESSION['username'] ==$row['username']){

@@ -9,12 +9,12 @@ if(!isset($_SESSION['employee_id']) || empty($_SESSION['employee_id'])){
     echo "Something went wrong";
 } else {
     $employee_id = $_SESSION['employee_id'];
-   // echo "employee_id: " . $employee_id;
+  //  echo "employee_id: " . $employee_id;
 }
 $uname = $_SESSION['username'];
 // echo $uname;
 
-$sql = "UPDATE Employee SET employee_plan_id = 1 WHERE id= $employee_id";
+$sql = "UPDATE Employee SET employee_plan_id = 3 WHERE id= $employee_id";
 if($stmt = mysqli_prepare($conn, $sql)) {
     //echo "working";
 
