@@ -37,7 +37,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 			  
               			  require_once '../config.php'; 
 							$client_id=0;
-                $sql = "SELECT id FROM account WHERE username=?";
+                $sql = "SELECT id FROM Account WHERE username=?";
                 if($stmt = mysqli_prepare($conn, $sql)){
                     mysqli_stmt_bind_param($stmt,  "s",  $param1);
                     $param1 = $_SESSION['username'];
@@ -52,7 +52,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                 }
                
 				
-                $sql = "SELECT * FROM contract WHERE client_id = ?";
+                $sql = "SELECT * FROM Contract WHERE client_id = ?";
                 if($stmt = mysqli_prepare($conn, $sql)) {
                     mysqli_stmt_bind_param($stmt, "s", $param1);
                     $param1 = $client_id;
@@ -88,12 +88,12 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                                 echo "<td>" . $row['acv'] . "</td>";
                                 echo "<td>" . $row['initial_amount'] . "</td>";
                                 echo "<td>". $row['start_date'] . "</td>";
-								echo "<td>". $row['service_type'] . "</td>";
-								echo "<td>". $row['contract_type'] . "</td>";
-								echo "<td>". $row['client_satisfaction'] . "</td>";
+				echo "<td>". $row['service_type'] . "</td>";
+				echo "<td>". $row['contract_type'] . "</td>";
+				echo "<td>". $row['client_satisfaction'] . "</td>";
                                 echo "<td>";
-								echo "<a href='satisfaction.php?id=". $row['id'] ."' title='Update Your satisfaction' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
-								echo "</tr>";
+				echo "<a href='satisfaction.php?id=". $row['id'] ."' title='Update Your satisfaction' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
+				echo "</tr>";
                             }
                             echo "</tbody>";
                             echo "</table>";

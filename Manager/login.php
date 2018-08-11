@@ -35,6 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
         $sql = "SELECT username, password, Manager.id FROM Account INNER JOIN Manager ON user_id = Account.id WHERE Account.username = ? AND Account.account_type = 3";
+        ;
 
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters

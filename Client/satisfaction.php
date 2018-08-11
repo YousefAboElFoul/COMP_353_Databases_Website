@@ -1,14 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
-// Initialize the session
 session_start();
-// If session variable is not set it will redirect to login page
+if(!isset($_GET['id']) || empty($_GET['id'])){
+header("location: login.php");
+   exit;
+}else
+{
+$getid=$_GET['id'];
+}
 if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
-    header("location: login.php");
-    exit;
+   header("location: login.php");
+   exit;
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Satisfaction Form</title>
@@ -39,7 +44,7 @@ if($_POST['Satisfaction_num']>0 and $_POST['Satisfaction_num']<10 )
 	{
 		$UserInput = $_POST['Satisfaction_num'];
 
-$sql = "SELECT id FROM account WHERE username=?";
+$sql = "SELECT id FROM Account WHERE username=?";
 	$client_id=0;
                 if($stmt = mysqli_prepare($conn, $sql)){
                     mysqli_stmt_bind_param($stmt,  "s",  $param1);
@@ -57,7 +62,7 @@ $sql = "SELECT id FROM account WHERE username=?";
 
 
 // Attempt insert query execution
-$sql ="UPDATE Contract SET client_satisfaction=$UserInput WHERE client_id=$client_id";
+$sql ="UPDATE Contract SET client_satisfaction=$UserInput WHERE client_id=$client_id and Contract.id=$getid";
 if(mysqli_query($conn, $sql)){
     echo "Records inserted successfully.";
 } else{

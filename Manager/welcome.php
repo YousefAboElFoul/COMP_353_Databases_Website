@@ -4,7 +4,7 @@ session_start();
 
 // If session variable is not set it will redirect to login page
 if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
-    header("location: ". $base_url . "/Manager/login.php");
+    header("location: login.php");
     exit;
 }
 
@@ -40,6 +40,7 @@ if(isset($_SESSION['manager_id']) && !empty($_SESSION['manager_id'])) {
 
                 </div>
                 <?php
+		echo "working";
 
                 // I SHOULD ACTUALLY HAVE THE LIST OF CONTRACTS FOR THIS MANAGER HERE
                 // WHERE EDITING --> NEW PAGE THAT SHOWS THE CONTRACT DETAILS AND THE LIST OF
@@ -48,7 +49,7 @@ if(isset($_SESSION['manager_id']) && !empty($_SESSION['manager_id'])) {
                 // Include config file
                 require_once '../config.php';
                 //$manager_id = 0;
-
+		echo "working1";
                 $sql = "SELECT 
                           Contract.id AS Con_id, 
                           Contract.client_id, 
@@ -58,19 +59,21 @@ if(isset($_SESSION['manager_id']) && !empty($_SESSION['manager_id'])) {
                           Contract.start_date ,
                           Contract.service_type ,
                           Contract.contract_type ,
-                          Contract.client_satisfaction FROM Manager INNER JOIN ContractManager ON 
-                          Manager.id = ContractManager.manager_id 
-                          INNER JOIN Contract ON Contract.id = ContractManager.contract_id WHERE 
-                          ContractManager.manager_id = ?
+                          Contract.client_satisfaction FROM Manager INNER JOIN Contract_Manager ON 
+                          Manager.id = Contract_Manager.manager_id 
+                          INNER JOIN Contract ON Contract.id = Contract_Manager.contract_id WHERE 
+                          Contract_Manager.manager_id = ?
                         ";
-
+		echo "working2";
 
                 if($stmt = mysqli_prepare($conn, $sql)) {
+			echo "working3";
                     mysqli_stmt_bind_param($stmt, "i", $param1);
                     $param1 = $manager_id;
                     if(mysqli_stmt_execute($stmt)) {
                         $result = mysqli_stmt_get_result($stmt);
                         if(mysqli_num_rows($result) > 0){
+				echo "working4";
 
                             // THIS TABLE IS MISSING VALUES
                             echo "<table class='table table-bordered table-striped'>";
@@ -115,7 +118,7 @@ if(isset($_SESSION['manager_id']) && !empty($_SESSION['manager_id'])) {
                             echo "<p class='lead'><em>No records were found.</em></p>";
                         }
                     } else {
-                        echo "Could not execute sql statement";
+                        echo "Could not executd sql statement";
                     }
                }
 

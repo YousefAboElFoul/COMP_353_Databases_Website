@@ -10,7 +10,7 @@ const HannaDEV = "hannaDev";
 const PROD = "prod";  // production
 
 
-$environment = RyanDEV; // choose your dev here
+$environment = PROD; // choose your dev here
 /* Database credentials. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
 
@@ -55,12 +55,12 @@ else if($environment == YousefDEV) {
     define('DB_SERVER', 'localhost');
     define('DB_USERNAME', 'root');
     define('DB_PASSWORD', '');
-    define('DB_NAME', 'rcc353_1');
+    define('DB_NAME', 'yousef');
 
     /* Attempt to connect to MySQL database */
     $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
-    $base_url = "/COMP_353_Databases_Website/";
+    $base_url = "/project/COMP_353_Databases_Website/";
 // Check connection
     if($conn === false) {
         die("ERROR: Could not connect. " . mysqli_connect_error());
@@ -97,7 +97,7 @@ else if($environment == HannaDEV) {
     /* Attempt to connect to MySQL database */
     $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
-    $base_url = "/project/COMP_353_Databases_Website/";
+    $base_url = "/COMP_353/";
 // Check connection
     if($conn === false) {
         die("ERROR: Could not connect. " . mysqli_connect_error());

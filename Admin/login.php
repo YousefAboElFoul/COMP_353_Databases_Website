@@ -1,5 +1,7 @@
 <?php
 session_start();
+// The code for this page was taken from this tutorial:
+// https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
 
 // Include config file
 require_once '../config.php'; // CHANGE THIS for production!
@@ -7,6 +9,7 @@ require_once '../config.php'; // CHANGE THIS for production!
 // Define variables and initialize with empty values
 $username = $password = "";
 $username_err = $password_err = "";
+
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -19,6 +22,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         //echo $username;  //TESTING
 
     }
+
     // Check if password is empty
     if(empty(trim($_POST['password']))){
         $password_err = 'Please enter your password.';
@@ -26,16 +30,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $password = trim($_POST['password']);
         //echo $password;  // TESTING
     }
+
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT * FROM account INNER JOIN admin ON user_id = account.id WHERE account.account_type  = ? AND  account.username = ?";
+        $sql = "SELECT * FROM admin WHERE user_name = ?";
 
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "is", $param_type, $param_username);
-			$param_type = 1;
-            $param_username = $username;
+            mysqli_stmt_bind_param($stmt, "s", $param_id);
+            $param_id = $username;
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Store result
@@ -84,6 +88,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
 
     <style type="text/css">
         body{ font: 14px sans-serif; }
