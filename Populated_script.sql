@@ -263,9 +263,10 @@ CREATE TABLE IF NOT EXISTS Contract (
     service_type INT UNSIGNED,
     contract_type INT UNSIGNED,
     sales_associate INT UNSIGNED,
-	first_deliverable DATE DEFAULT '0000-00-00',
-	second_deliverable DATE DEFAULT '0000-00-00',
-	third_deliverable DATE DEFAULT '0000-00-00',
+    first_deliverable DATE,
+    second_deliverable DATE,
+    third_deliverable DATE,
+		final_deliverable DATE,
 	line_business  INT UNSIGNED,
 	client_satisfaction INT DEFAULT NULL,
 	CONSTRAINT satisfaction_chk CHECK (client_satisfaction BETWEEN 1 AND 10),
@@ -327,7 +328,231 @@ INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_typ
 INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type, sales_associate,line_business)
   VALUES(5, 2, 110000, 20000, 2, 1, 2,5);
   
-  
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+INSERT INTO Contract(client_id,
+    responsible_id,
+    acv,
+    initial_amount,
+    service_type,
+    contract_type,
+    sales_associate,
+    line_business,
+    start_date,
+    first_deliverable,
+    second_deliverable,
+    final_deliverable)
+  VALUES(5, 2, 100000, 25000, 2, 1, 2,5,
+  date("2017-01-05 00:00:00"),
+  '2017-01-08',
+  '2017-01-10',
+  '2017-01-15');
+
+  INSERT INTO Contract(client_id,
+    responsible_id,
+    acv,
+    initial_amount,
+    service_type,
+    contract_type,
+    sales_associate,
+    line_business,
+    start_date,
+    first_deliverable,
+    second_deliverable,
+    final_deliverable)
+  VALUES(2, 1, 10000, 2500, 2, 2, 2,5,
+  date("2017-02-03 00:00:00"),
+  '2017-02-05',
+  '2017-02-10',
+  '2017-02-15');
+
+
+  INSERT INTO Contract(client_id,
+    responsible_id,
+    acv,
+    initial_amount,
+    service_type,
+    contract_type,
+    sales_associate,
+    line_business,
+    start_date,
+    first_deliverable,
+    second_deliverable,
+    final_deliverable)
+  VALUES(4, 1, 10000, 2500, 4, 3, 2, 5,
+  date("2017-03-02 00:00:00"),
+  '2017-03-05',
+  '2017-03-10',
+  '2017-03-15');
+
+  INSERT INTO Contract(client_id,
+    responsible_id,
+    acv,
+    initial_amount,
+    service_type,
+    contract_type,
+    sales_associate,
+    line_business,
+    start_date,
+    first_deliverable,
+    second_deliverable,
+    third_deliverable,
+    final_deliverable)
+  VALUES(4, 1, 10000, 2500, 4, 4, 2, 5,
+  date("2017-04-02 00:00:00"),
+  '2017-04-07',
+  '2017-04-17',
+  '2017-04-22',
+  '2017-04-30');
+
+  INSERT INTO Contract(client_id,
+    responsible_id,
+    acv,
+    initial_amount,
+    service_type,
+    contract_type,
+    sales_associate,
+    line_business,
+    start_date,
+    first_deliverable,
+    second_deliverable,
+    final_deliverable)
+  VALUES(1, 1, 11000, 2500, 1, 1, 3, 2,
+  date("2017-05-01 00:00:00"),
+  '2017-05-04',
+  '2017-05-06',
+  '2017-05-10');
+
+  INSERT INTO Contract(client_id,
+    responsible_id,
+    acv,
+    initial_amount,
+    service_type,
+    contract_type,
+    sales_associate,
+    line_business,
+    start_date,
+    first_deliverable,
+    second_deliverable,
+    final_deliverable)
+  VALUES(5, 2, 1000, 200, 3, 2, 4, 4,
+  date("2017-06-01 00:00:00"),
+  '2017-06-06',
+  '2017-06-11',
+  '2017-06-18');
+
+
+  INSERT INTO Contract(client_id,
+    responsible_id,
+    acv,
+    initial_amount,
+    service_type,
+    contract_type,
+    sales_associate,
+    line_business,
+    start_date,
+    first_deliverable,
+    second_deliverable,
+    final_deliverable)
+  VALUES(2, 2, 10000, 2000, 1, 3, 2, 3,
+  date("2017-07-03 00:00:00"),
+  '2017-07-11',
+  '2017-07-13',
+  '2017-07-20');
+
+  INSERT INTO Contract(client_id,
+    responsible_id,
+    acv,
+    initial_amount,
+    service_type,
+    contract_type,
+    sales_associate,
+    line_business,
+    start_date,
+    first_deliverable,
+    second_deliverable,
+    final_deliverable)
+  VALUES(2, 2, 10000, 2000, 1, 3, 2, 3,
+  date("2017-08-01 00:00:00"),
+  '2017-08-10',
+  '2017-08-12',
+  '2017-08-19');
+
+  INSERT INTO Contract(client_id,
+    responsible_id,
+    acv,
+    initial_amount,
+    service_type,
+    contract_type,
+    sales_associate,
+    line_business,
+    start_date,
+    first_deliverable,
+    second_deliverable,
+    third_deliverable,
+    final_deliverable)
+  VALUES(4, 1, 13000, 2500, 2, 4, 2, 3,
+  date("2017-09-01 00:00:00"),
+  '2017-09-06',
+  '2017-09-16',
+  '2017-09-21',
+  '2017-09-29');
+
+  INSERT INTO Contract(client_id,
+    responsible_id,
+    acv,
+    initial_amount,
+    service_type,
+    contract_type,
+    sales_associate,
+    line_business,
+    start_date,
+    first_deliverable,
+    second_deliverable,
+    final_deliverable)
+  VALUES(4, 1, 13000, 2500, 2, 1, 2, 3,
+  date("2017-10-03 00:00:00"),
+  '2017-10-06',
+  '2017-10-08',
+  '2017-10-12');
+
+  INSERT INTO Contract(client_id,
+    responsible_id,
+    acv,
+    initial_amount,
+    service_type,
+    contract_type,
+    sales_associate,
+    line_business,
+    start_date,
+    first_deliverable,
+    second_deliverable,
+    final_deliverable)
+  VALUES(2, 1, 13000, 2500, 2, 1, 2, 3,
+  date("2017-11-03 00:00:00"),
+  '2017-11-06',
+  '2017-11-08',
+  '2017-11-12');
+
+
+INSERT INTO Contract(client_id,
+    responsible_id,
+    acv,
+    initial_amount,
+    service_type,
+    contract_type,
+    sales_associate,
+    line_business,
+    start_date,
+    first_deliverable,
+    second_deliverable,
+    final_deliverable)
+  VALUES(3, 1, 13000, 2500, 2, 1, 2, 3,
+  date("2017-12-03 00:00:00"),
+  '2017-12-06',
+  '2017-12-08',
+  '2017-12-12');
+# ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 # contract type is 1 for this 1st contract therefore we need an employee whos preferred
 # contract type is 1 therefor Max Patches the third employee created --> employee_id = 3
