@@ -3,12 +3,6 @@
 session_start();
 require_once '../config.php';
 
-// If session variable is not set it will redirect to login page
-if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
-    header("location: " . $base_url . "Manager/logout.php");
-    exit;
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +17,6 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 </head>
 <body>
     <div class="page-header">
-        <h1>Hi, <b><?php echo htmlspecialchars($_SESSION['username']); ?></b></h1>
     </div>
     <div>
         <h2><br><b>Reports</b></h2>
@@ -48,11 +41,18 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 
     <div>
         <h3>5. Clients with highest satisfaction scores by contract category per city</h3>
-        <p><a href="satisfaction.php" class="btn btn-success">Go</a></p>
+        <p><a href="report5.php" class="btn btn-success">Go</a></p>
+    </div>
+	
+	 <div>
+        <h3>6. Number of employees with Premium Employee plan with working hours less than 60 hrs/month</h3>
+        <p><a href="overloaded_type1_employees.php" class="btn btn-success">Go</a></p>
+    </div>
+	
+	 <div>
+        <h3>7.Number of Premium contracts delivered in more than 10 business days having more than 35 employees with “Silver Employee Plan </h3>
+        <p><a href="newreport2.php" class="btn btn-success">Go</a></p>
     </div>
 
-
-
-    <p><a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a></p>
-</body>
+	</body>
 </html>
