@@ -189,7 +189,7 @@ INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_provin
     VALUES("Max Patches", 7, 2, 3, "Quebec");
 
 INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
-    VALUES("Sonny Jim", 13, 1, 1, "Quebec");
+    VALUES("Sonny Jim", 13, 1, 2, "Quebec");
 
 INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
     VALUES("Banana Sandwhich", 14, 4, 2, "Quebec");
@@ -307,8 +307,8 @@ CREATE TABLE IF NOT EXISTS Contract_Manager(
 
 
 
-INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type, sales_associate,line_business)
-  VALUES(1, 1, 69000, 20000, 1, 1, 1,1);
+INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type, sales_associate,line_business,start_date,first_deliverable,second_deliverable,final_deliverable)
+  VALUES(1, 1, 69000, 20000, 1, 1, 1,1,date("2017-01-05 00:00:00"),'2017-01-08','2017-01-10','2017-01-25');
 INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type, sales_associate,line_business)
   VALUES(2, 2, 7355608, 20000, 1, 2, 1,2);
 INSERT INTO Contract(client_id, responsible_id, acv, initial_amount, service_type, contract_type, sales_associate,line_business)
@@ -346,7 +346,7 @@ INSERT INTO Contract(client_id,
   date("2017-01-05 00:00:00"),
   '2017-01-08',
   '2017-01-10',
-  '2017-01-15');
+  '2017-01-25');
 
   INSERT INTO Contract(client_id,
     responsible_id,
@@ -603,5 +603,156 @@ INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(5, 
 INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(9, 1, 80);
 INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(9, 5, 55);
 INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(9, 9, 80);
+
+#report number 2 employees
+
+# employees added for 7th report 
+
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler nguyen", 26, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler Degeneress", 27, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler drei ", 28, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler  khamse", 29, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler seteh ", 30, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler sabaa ", 31, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler tmeneh", 32, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler tessa", 33, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler ashara", 34, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler onze", 35, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler douze", 36, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler treise", 37, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler quatorze", 38, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler quinze", 39, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler seize", 40, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler dixsept", 41, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler dixhuit", 42, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler dix neuf", 43, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler vingh", 44, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler tiger", 45, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler panther", 46, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler ferdinand", 47, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler panzer", 48, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler churchill", 49, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler chromwell", 50, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler apds", 51, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler patton", 52, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler honika", 53, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler clarke", 54, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler wells", 55, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler kensei", 56, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler orochi", 57, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler tide", 58, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler venge", 59, 1, 2, "Quebec");
+INSERT INTO Employee(name, user_id, contract_type, employee_plan_id, home_province)
+    VALUES("Filler sven", 60, 1, 2, "Quebec");
+
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 11, 40);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 12, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 13, 40);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 14, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 15, 40);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 16, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 17, 40);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 18, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 19, 40);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 20, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 21, 40);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 22, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 23, 40);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 24, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 25, 40);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 26, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 27, 40);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 28, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 29, 40);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 30, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 31, 40);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 32, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 33, 40);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 34, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 35, 40);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 36, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 37, 40);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 38, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 39, 40);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 40, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 41, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 42, 40);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 43, 80);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 44, 40);
+INSERT INTO Contract_Employee(contract_id, employee_id, hours_worked) VALUES(1, 45, 80);
+
+#accounts of these employees
+INSERT INTO Account(username,password,account_type) VALUES('filler1','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler2','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler3','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler4','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler5','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler6','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler7','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler8','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler9','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler10','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler11','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler12','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler13','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler14','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler15','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler116','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler17','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler18','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler111','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler20','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler123','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler321','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler654','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('filler645','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('fille645r','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('fill5er','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('f6iller','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('fill5er','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('fi2ller','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('fill1er','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('fil2ler','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('f2iller','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('fill02er','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('fill3er','fillap',4);
+INSERT INTO Account(username,password,account_type) VALUES('fi0ller','fillap',4);
+
+
+
 
 
