@@ -65,11 +65,11 @@ if(!isset($_GET['sales_name']) || empty($_GET['sales_name'])){
                         Contract_type.name AS Con_name, 
                         Contract_type.id AS Con_type_id,  
                         Service_type.name AS Serv_name, 
-                        DATE(Contract.start_date) 
+                        Contract.start_date
                         FROM Contract_type INNER JOIN Contract ON 
                         Contract.contract_type = Contract_type.id INNER JOIN Service_type 
                         ON Contract.service_type = Service_type.id WHERE
-                        sales_associate = ? AND start_date >= DATE_ADD(CURDATE(), INTERVAL -10 DAY)";
+                        sales_associate = ? AND Contract.start_date >= DATE_ADD(CURDATE(), INTERVAL -10 DAY)";
 
                // $sql = "SELECT * FROM Contract WHERE sales_associate = ?";
                 if($stmt = mysqli_prepare($conn, $sql)) {
@@ -89,7 +89,6 @@ if(!isset($_GET['sales_name']) || empty($_GET['sales_name'])){
                                 echo "<td>" . $row['initial_amount'] . "</td>";
                                 echo "<td>". $row['start_date'] . "</td>";
                                 echo "<td>". $row['Con_name'] . "</td>";
-
                                 echo "<td>". $row['Serv_name'] . "</td>";
 
                                 echo "</tr>";
